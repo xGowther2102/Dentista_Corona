@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
+    <title>Restablecer Contraseña</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <style>
         /* Add custom CSS styles */
@@ -93,19 +93,33 @@
         }
 
         .btn-primary {
-            background-color: blue;
+            background-color: #F2BC57;
             /* Set button background color */
             color: #1C3059;
             /* Set button text color */
             border: none;
             /* Remove button border */
+            border-radius: 10px;
+            /* Add border radius for rounded corners */
         }
 
         .btn-primary:hover {
-            background-color: #f0f0f0;
+            background-color: #F2AB50;
             /* Change button background color on hover */
             color: #1C3059;
             /* Change button text color on hover */
+        }
+
+        a {
+            text-decoration: none;
+            color: #F2BC57;
+            transition: background-color 0.3s;
+            /* Transición suave del color de fondo */
+        }
+
+        a:hover {
+            color: #FFA500;
+            /* Color al pasar el cursor */
         }
     </style>
 </head>
@@ -121,32 +135,34 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        <h3 style="margin-bottom: 0;">Iniciar Sesión</h3> <!-- Added margin to h3 -->
+                        <h3 style="margin-bottom: 0;">Restablecer Contraseña</h3> <!-- Added margin to h3 -->
                     </div>
                     <div class="card-body">
                         <br>
                         <div class="img-container">
-                            <img src="../../images/doctor.png" alt="Icono" style="max-width: 100px; margin-right: 1px;">
+                            <img src="../../images/reset.png" alt="Icono" style="max-width: 100px; margin-right: 1px;">
                         </div>
                         <br>
                         <br>
-                        <form>
+                        <form action="reset_password.php" method="POST">
                             <div class="form-group row">
-                                <label for="username" class="col-sm-3 col-form-label text-white">Usuario:</label>
+                                <label for="email" class="col-sm-3 col-form-label text-white">Correo Electrónico:</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control text-white" id="username" placeholder="Ingrese su usuario">
+                                    <input type="email" class="form-control text-white" id="email" name="email" placeholder="Ingrese su correo electrónico">
                                 </div>
                             </div>
                             <br>
-                            <div class="form-group row">
-                                <label for="password" class="col-sm-3 col-form-label text-white">Contraseña:</label>
-                                <div class="col-sm-8">
-                                    <input type="password" class="form-control text-white" id="password" placeholder="Ingrese su contraseña">
+                            <br>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <button type="submit" class="btn btn-primary">Restablecer Contraseña</button>
                                 </div>
                             </div>
-                            <br>
-                            <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
                         </form>
+                        <br>
+                        <br>
+                        <a href="../../assets/login/login.php">Volver al inicio de sesión</a>
+                        <br>
                     </div>
                 </div>
             </div>
@@ -155,3 +171,5 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
+
+</html>

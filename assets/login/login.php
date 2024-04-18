@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
+    <title>Inicio de sesion</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <style>
         /* Add custom CSS styles */
@@ -93,19 +93,51 @@
         }
 
         .btn-primary {
-            background-color: blue;
+            background-color: #F2BC57;
             /* Set button background color */
             color: #1C3059;
             /* Set button text color */
             border: none;
             /* Remove button border */
+            border-radius: 10px;
+            /* Add border radius for rounded corners */
         }
 
         .btn-primary:hover {
-            background-color: #f0f0f0;
+            background-color: #F2AB50;
             /* Change button background color on hover */
             color: #1C3059;
             /* Change button text color on hover */
+        }
+
+        .btn-secondary {
+            background-color: #A66933;
+            /* Set second button background color */
+            color: white;
+            /* Set second button text color */
+            border: none;
+            /* Remove second button border */
+            border-radius: 10px;
+            /* Add border radius for rounded corners */
+        }
+
+        .btn-secondary:hover {
+            background-color: #B66833;
+            /* Change second button background color on hover */
+            color: white;
+            /* Change second button text color on hover */
+        }
+
+        a {
+            text-decoration: none;
+            color: #F2BC57;
+            transition: background-color 0.3s;
+            /* Transición suave del color de fondo */
+        }
+
+        a:hover {
+            color: #FFA500;
+            /* Color al pasar el cursor */
         }
     </style>
 </head>
@@ -130,13 +162,14 @@
                         </div>
                         <br>
                         <br>
-                        <form>
+                        <form action="pagina1.html">
                             <div class="form-group row">
                                 <label for="username" class="col-sm-3 col-form-label text-white">Usuario:</label>
                                 <div class="col-sm-8">
                                     <input type="text" class="form-control text-white" id="username" placeholder="Ingrese su usuario">
                                 </div>
                             </div>
+                            <br>
                             <div class="form-group row">
                                 <label for="password" class="col-sm-3 col-form-label text-white">Contraseña:</label>
                                 <div class="col-sm-8">
@@ -144,8 +177,21 @@
                                 </div>
                             </div>
                             <br>
-                            <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+                            <br>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+                                </div>
+                                <br>
+                                <div class="col-sm-6">
+                                    <a href="pagina2.html" class="btn btn-secondary">Ir a otra página</a>
+                                </div>
+                            </div>
                         </form>
+                        <br>
+                        <br>
+                        <a href="../../assets/forgotpassword/reset.php">¿Has olvidado tu contraseña?</a>
+                        <br>
                     </div>
                 </div>
             </div>
