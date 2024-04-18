@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio de sesion</title>
+    <title>Registro</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="icon" href="../../images/Logo_Big.png" type="image/png">
     <style>
@@ -140,6 +140,17 @@
             color: #FFA500;
             /* Color al pasar el cursor */
         }
+
+        /* Estilo para los botones de ojo */
+        .btn-eye {
+            border: none;
+            background-color: transparent;
+            color: white;
+        }
+
+        .parrafo {
+        text-align: justify;
+    }
     </style>
 </head>
 
@@ -154,50 +165,68 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        <h3 style="margin-bottom: 0;">Iniciar Sesión</h3> <!-- Added margin to h3 -->
+                        <h3 style="margin-bottom: 0;">Cambio de contraseña</h3> <!-- Added margin to h3 -->
                     </div>
                     <div class="card-body">
-                        <br>
+                    
                         <div class="img-container">
-                            <img src="../../images/doctor.png" alt="Icono" style="max-width: 100px; margin-right: 1px;">
+                            <img src="../../images/password.png" alt="Icono" style="max-width: 100px; margin-right: 1px;">
                         </div>
-                        <br>
-                        <br>
+                   
                         <form action="#">
-                            <div class="form-group row">
-                                <label for="username" class="col-sm-3 col-form-label text-white">Usuario:</label>
-                                <div class="col-sm-8">
-                                    <input type="text" class="form-control text-white" id="username" placeholder="Ingrese su usuario">
-                                </div>
+
+                        <div class="form-group row parrafo">
+                            <div class="col-sm-10">
+                                <p class="text-white">
+                                    Elige una contraseña que no hayas usado hasta ahora, para proteger tu cuenta,
+                                    debes de elegir una contraseña nueva cada vez que restablezcas.
+                                </p>
                             </div>
-                            <br>
+                            </div>
+
+
                             <div class="form-group row">
-                                <label for="password" class="col-sm-3 col-form-label text-white">Contraseña:</label>
-                                <div class="col-sm-8">
+                                <label for="password" class="col-sm-12 col-form-label text-white">Nueva Contraseña:</label>
+                                <div class="col-sm-10">
                                     <input type="password" class="form-control text-white" id="password" placeholder="Ingrese su contraseña">
                                 </div>
+                                <div class="col-sm-2">
+                                    <button type="button" class="btn btn-outline-light btn-eye" id="togglePassword">👁️</button>
+                                </div>
                             </div>
-                            <br>
-                            <br>
+                            
+                            <div class="form-group row">
+                                <label for="password" class="col-sm-12 col-form-label text-white">Confirmar contraseña:</label>
+                                <div class="col-sm-10">
+                                    <input type="password" class="form-control text-white" id="password" placeholder="Ingrese su contraseña">
+                                </div>
+                                <div class="col-sm-2">
+                                    <button type="button" class="btn btn-outline-light btn-eye" id="togglePassword">👁️</button>
+                                </div>
+                            </div>
+                            
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <button type="submit" class="btn btn-primary">Iniciar Sesón</button>
-                                </div>
-                                <br>
-                                <div class="col-sm-6">
-                                    <a href="./register.php" class="btn btn-secondary">Registrar un usuario</a>
+                                    <button type="submit" class="btn btn-primary">Restablecer</button>
                                 </div>
                             </div>
                         </form>
-                        <br>
-                        <br>
-                        <a href="../../assets/forgotpassword/reset.php">¿Olvido su contraseña?</a>
-                        <br>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        const togglePassword = document.getElementById('togglePassword');
+        const password = document.getElementById('password');
+
+        togglePassword.addEventListener('click', function() {
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            this.textContent = type === 'password' ? '👁️' : '👁️';
+        });
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
