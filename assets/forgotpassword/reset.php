@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Restablecer Contraseña</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="icon" href="../../images/Logo_Big.png" type="image/png">
     <style>
         /* Add custom CSS styles */
         body {
@@ -145,6 +146,9 @@
                         <br>
                         <br>
                         <form action="reset_password.php" method="POST">
+                            <!-- Explicación sobre el campo Correo Electrónico -->
+                            <p>Por favor, ingrese su correo electrónico para restablecer su contraseña:</p>
+                            <br>
                             <div class="form-group row">
                                 <label for="email" class="col-sm-3 col-form-label text-white">Correo Electrónico:</label>
                                 <div class="col-sm-8">
@@ -155,7 +159,7 @@
                             <br>
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <button type="submit" class="btn btn-primary">Restablecer Contraseña</button>
+                                    <button type="submit" class="btn btn-primary">Enviar correo</button>
                                 </div>
                             </div>
                         </form>
