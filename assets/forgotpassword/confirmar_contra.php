@@ -140,6 +140,9 @@
             color: #FFA500;
             /* Color al pasar el cursor */
         }
+        .destacado{
+            font-size: 20px; /* Tamaño de letra para los párrafos */
+        }
     </style>
 </head>
 
@@ -163,32 +166,27 @@
                         </div>
                         <br>
                         <br>
+                        <br>
                         <form action="#">
                             <div class="form-group row">
-                                <label for="username" class="col-sm-3 col-form-label text-white">Usuario:</label>
-                                <div class="col-sm-8">
-                                    <input type="text" class="form-control text-white" id="username" placeholder="Ingrese su usuario">
+                                <div class="col-sm-12">
+                                    <p class="destacado">
+                                    "La contraseña se ha cambiado. REDIRIGIENDO a la página de inicio de sesión o simplemente PULSA el botón de abajo para volver."
+                                    </p>
                                 </div>
                             </div>
                             <br>
-                            <div class="form-group row">
-                                <label for="password" class="col-sm-3 col-form-label text-white">Contraseña:</label>
-                                <div class="col-sm-8">
-                                    <input type="password" class="form-control text-white" id="password" placeholder="Ingrese su contraseña">
-                                </div>
-                            </div>
                             <br>
                             <br>
                             <div class="row">
                                 <br>
                                 <div class="col-sm-12">
-                                    <a href="#" class="btn btn-secondary">Registrar un usuario</a>
+                                    <a href="../login/login.php" class="btn btn-secondary">Regresar al inico</a>
                                 </div>
                             </div>
                         </form>
                         <br>
                         <br>
-                        <a href="../../assets/forgotpassword/reset.php">¿Olvido su contraseña?</a>
                         <br>
                     </div>
                 </div>
