@@ -166,7 +166,7 @@
                     <div class="card-body">
                     
                         <div class="img-container">
-                            <img src="../../images/image.png" alt="Icono" style="max-width: 100px; margin-right: 1px;">
+                            <img src="../../images/registro.png" alt="Icono" style="max-width: 100px; margin-right: 1px;">
                         </div>
                    
                         <form action="#">
