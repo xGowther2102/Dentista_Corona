@@ -184,7 +184,7 @@
                                 </div>
                                 <br>
                                 <div class="col-sm-6">
-                                    <a href="pagina2.html" class="btn btn-secondary">Ir a otra página</a>
+                                    <a href="pagina2.html" class="btn btn-secondary">Registrar un Usuario</a>
                                 </div>
                             </div>
                         </form>
