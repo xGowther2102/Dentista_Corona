@@ -162,7 +162,7 @@
                         </div>
                         <br>
                         <br>
-                        <form action="pagina1.html">
+                        <form action="#">
                             <div class="form-group row">
                                 <label for="username" class="col-sm-3 col-form-label text-white">Usuario:</label>
                                 <div class="col-sm-8">
@@ -184,7 +184,7 @@
                                 </div>
                                 <br>
                                 <div class="col-sm-6">
-                                    <a href="pagina2.html" class="btn btn-secondary">Registrar un Usuario</a>
+                                    <a href="#" class="btn btn-secondary">Registrar un Usuario</a>
                                 </div>
                             </div>
                         </form>
