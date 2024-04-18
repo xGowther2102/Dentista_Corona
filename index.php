@@ -9,6 +9,7 @@
     <link rel="icon" href="./images/Logo_Big.png" type="image/png">
     <style>
         /* Add custom CSS styles */
+        /* edwin esta bien wey */
         body {
             background-color: #1C3059;
             /* Set background color to HEX #1C3059 */
