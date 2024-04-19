@@ -197,28 +197,28 @@
                                     <input type="password" class="form-control text-white" id="password" placeholder="Ingrese su contraseña">
                                 </div>
                                 <div class="col-sm-2">
-                                    <button type="button" class="btn btn-outline-light btn-eye" id="togglePassword">👁️</button>
+                                    <button type="button" class="btn btn-outline-light btn-eye" id="togglePassword">🙈</button>
                                 </div>
                             </div>
                             
                             <div class="form-group row">
                                 <label for="password" class="col-sm-12 col-form-label text-white">Confirmar contraseña:</label>
                                 <div class="col-sm-10">
-                                    <input type="password" class="form-control text-white" id="password" placeholder="Ingrese su contraseña">
+                                    <input type="password" class="form-control text-white" id="confirmPassword" placeholder="Ingrese su contraseña">
                                 </div>
                                 <div class="col-sm-2">
-                                    <button type="button" class="btn btn-outline-light btn-eye" id="togglePassword">👁️</button>
+                                    <button type="button" class="btn btn-outline-light btn-eye" id="toggleConfirmPassword">🙈</button>
                                 </div>
                             </div>
-                            
+                            <br>
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <button type="submit" class="btn btn-primary">Ingresar</button>
+                                    <button type="submit" class="btn btn-primary">Registrar</button>
                                 </div>
                             </div>
                         </form>
                         <br>
-                        <a href="./registro.php">¿No tienes cuenta? Regístrate aquí</a>
+                        <a href="../../assets/login/login.php">¿Ya tienes cuenta?</a>
                     </div>
                 </div>
             </div>
@@ -228,11 +228,18 @@
     <script>
         const togglePassword = document.getElementById('togglePassword');
         const password = document.getElementById('password');
-
         togglePassword.addEventListener('click', function() {
             const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
             password.setAttribute('type', type);
-            this.textContent = type === 'password' ? '👁️' : '👁️';
+            this.textContent = type === 'password' ? '🙈' : '🙉';
+        });
+
+        const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
+        const confirmPassword = document.getElementById('confirmPassword');
+        toggleConfirmPassword.addEventListener('click', function() {
+            const type = confirmPassword.getAttribute('type') === 'password' ? 'text' : 'password';
+            confirmPassword.setAttribute('type', type);
+            this.textContent = type === 'password' ? '🙈' : '🙉';
         });
     </script>
 
