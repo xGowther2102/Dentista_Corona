@@ -201,7 +201,7 @@
             <div class="main-content">
                 <!-- Contenido principal -->
                 <h1>Contenido Principal</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec justo leo.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec justo leo  .</p>
             </div>
             <div class="content-strip"></div>
 

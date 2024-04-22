@@ -176,7 +176,6 @@
           }
         });
       }
-
       // Llamar a la función generarGrafica al cargar la página
       generarGrafica();
     });
