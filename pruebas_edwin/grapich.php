@@ -27,12 +27,17 @@
       max-height: 300px;
       overflow-y: auto;
     }
+<<<<<<< HEAD
     #grafica-container {
       margin-top: 20px;
     }
     #grafica {
       width: 100%;
       height: 300px; /* Establece una altura predeterminada */
+=======
+    #grafica {
+      height: 300px;
+>>>>>>> 7899ad58c3ce73a5c1ba8e3ed3a3276181b6a979
       border: 1px solid #dee2e6;
       border-radius: 5px;
       padding: 10px;
@@ -92,9 +97,13 @@
     <button type="button" class="btn btn-success mt-3" id="generarGraficaBtn">Generar Gráfica</button>
 
     <!-- Div para mostrar la gráfica -->
+<<<<<<< HEAD
     <div id="grafica-container" class="mt-4">
       <canvas id="grafica"></canvas>
     </div>
+=======
+    <canvas id="grafica" class="mt-4"></canvas>
+>>>>>>> 7899ad58c3ce73a5c1ba8e3ed3a3276181b6a979
   </div>
 
   <!-- Enlace a Bootstrap JS (popper.js y Bootstrap bundle) y jQuery -->
@@ -105,7 +114,10 @@
   <script>
     $(document).ready(function() {
       let datosTemporales = [];
+<<<<<<< HEAD
       let myChart; // Variable para almacenar la instancia de la gráfica
+=======
+>>>>>>> 7899ad58c3ce73a5c1ba8e3ed3a3276181b6a979
 
       // Función para agregar datos a la tabla
       $("#formularioDato").submit(function(e) {
@@ -141,6 +153,7 @@
           valores.push(dato.valor);
         });
 
+<<<<<<< HEAD
         // Eliminar la gráfica anterior si existe
         if (myChart) {
           myChart.destroy();
@@ -149,6 +162,11 @@
         // Configuración de la gráfica
         var ctx = document.getElementById('grafica').getContext('2d');
         myChart = new Chart(ctx, {
+=======
+        // Configuración de la gráfica
+        var ctx = document.getElementById('grafica').getContext('2d');
+        var myChart = new Chart(ctx, {
+>>>>>>> 7899ad58c3ce73a5c1ba8e3ed3a3276181b6a979
           type: 'bar',
           data: {
             labels: labels,
@@ -168,6 +186,7 @@
             }
           }
         });
+<<<<<<< HEAD
 
         // Redimensionar la gráfica cuando cambia el tamaño de la ventana
         $(window).on('resize', function(){
@@ -179,6 +198,9 @@
 
       // Llamar a la función generarGrafica al cargar la página
       generarGrafica();
+=======
+      }
+>>>>>>> 7899ad58c3ce73a5c1ba8e3ed3a3276181b6a979
     });
   </script>
 </body>
