@@ -10,7 +10,6 @@
 <?php require_once '../../assets/MENU/index.php'; ?>
 <main class="dark-mod">
     <div class="container">
-        <?php require_once '../../assets/fecha/fecha_en_vivo.php'; ?>
         <h1 class="text-center mb-4">ACTUALIZAR CITA</h1>
         <div class="img-container" style="display: flex; justify-content: center; align-items: center;">
             <img src="../../images/registro.png" alt="Icono" style="max-width: 65px; margin-right: 1px;">
