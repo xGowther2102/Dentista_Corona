@@ -55,6 +55,8 @@
             </div>
             </form>
         </div>
+        <br>
+        <?php require_once '../../assets/fecha/fecha_en_vivo.php'; ?>
     </div>
 
     <!-- Modal de éxito -->
