@@ -3,7 +3,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrar nuevo paciente</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="../../css/cita_paciente.css">
+    <link rel="stylesheet" href="../../css/actualizar_cita_paciente.css">
 
 </head>
 
@@ -11,7 +11,7 @@
 <main class="dark-mod">
     <div class="hora">
         <div class="container">
-            <h1 class="text-center mb-4">AGREGAR NUEVO PACIENTE</h1>
+            <h1 class="text-center mb-4">ACTUALIZAR DATOS DEL PACIENTE</h1>
             <div class="img-container" style="display: flex; justify-content: center; align-items: center;">
                 <img src="../../images/registro.png" alt="Icono" style="max-width: 65px; margin-right: 1px;">
             </div>
@@ -69,7 +69,7 @@
                 </div>
                 <div class="btn-container">
                     <br>
-                    <button type="button" class="btn btn-primary btn-shine" onclick="registrarPaciente()">Registrar</button>
+                    <button type="button" class="btn btn-primary btn-shine" onclick="registrarPaciente()">Actualizar</button>
                     <button type="button" class="btn btn-secondary btn-shine" data-bs-toggle="modal" data-bs-target="#errorModal">Cancelar</button>
                 </div>
                 </form>
@@ -87,7 +87,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Se ha registrado con éxito el paciente.
+                    Se ha actualizado con éxito los datos.
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
