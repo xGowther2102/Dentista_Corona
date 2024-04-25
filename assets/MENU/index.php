@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sidebar</title>
-    <link rel="stylesheet" href="./style.css">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+    <link rel="stylesheet" href="../../assets/MENU/style.css">
 </head>
 
 <body>
@@ -17,13 +18,9 @@
     <div class="barra-lateral">
         <div>
             <div class="nombre-pagina">
-                <ion-icon id="cloud" name="cloud-outline"></ion-icon>
-                <span>Apex</span>
+                <iconify-icon icon="ion:home"></iconify-icon>
+                <span>CORONA &copy;</span>
             </div>
-            <button class="boton">
-                <ion-icon name="add-outline"></ion-icon>
-                <span>Create new</span>
-            </button>
         </div>
 
         <nav class="navegacion">
@@ -31,44 +28,43 @@
                 <li>
                     <a id="inbox" href="#">
                         <ion-icon name="mail-unread-outline"></ion-icon>
-                        <span>Inbox</span>
+                        <span>Panel Principal</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
                         <ion-icon name="star-outline"></ion-icon>
-                        <span>Starred</span>
+                        <span>Citas</span>
                     </a>
                 </li>
+                <button class="boton">
+                    <ion-icon name="add-outline"></ion-icon>
+                    <span>Nueva cita</span>
+                </button>
                 <li>
                     <a href="#">
                         <ion-icon name="paper-plane-outline"></ion-icon>
-                        <span>Sent</span>
+                        <span>Pacientes</span>
                     </a>
+                </li>
+                <li>
+                    <button class="boton">
+                        <ion-icon name="add-outline"></ion-icon>
+                        <span>N. paciente</span>
+                    </button>
                 </li>
                 <li>
                     <a href="#">
                         <ion-icon name="document-text-outline"></ion-icon>
-                        <span>Drafts</span>
+                        <span style="font-size: 1em;">Informacion de la
+                            <br>app web</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
-                        <ion-icon name="bookmark-outline"></ion-icon>
-                        <span>Important</span>
-                    </a>
+
                 </li>
                 <li>
-                    <a href="#">
-                        <ion-icon name="alert-circle-outline"></ion-icon>
-                        <span>Spam</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <ion-icon name="trash-outline"></ion-icon>
-                        <span>Trash</span>
-                    </a>
+
                 </li>
             </ul>
         </nav>
@@ -79,19 +75,20 @@
             <div class="modo-oscuro">
                 <div class="info">
                     <ion-icon name="moon-outline"></ion-icon>
-                    <span>Drak Mode</span>
+                    <span style="font-size: 1em;">Modo Oscuro</span>
                 </div>
-                <div class="switch">
-                    <div class="base">
-                        <div class="circulo">
-
+                <div class="modo-oscuro-toggle">
+                    <div class="switch" id="modo-oscuro-switch">
+                        <div class="base">
+                            <div class="circulo"></div>
                         </div>
                     </div>
                 </div>
             </div>
 
+
             <div class="usuario">
-                <img src="./Jhampier.jpg" alt="">
+                <img src="../../assets/MENU/Jhampier.jpg" alt="">
                 <div class="info-usuario">
                     <div class="nombre-email">
                         <span class="nombre">HOLA</span>
@@ -105,17 +102,25 @@
     </div>
 
 
-    <main class="dark-mod">
-        <?php 
-        require_once 'grafica.php';
-        ?>
-    </main>
+    <!--
+<main class="dark-mod">
+<?php
+/*
+    require_once 'grafica.php';
+    */
+?>
+</main>
+-->
+
+
+
+
 
 
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <script src="./script.js"></script>
+    <script src="../../assets/MENU/script.js"></script>
 </body>
 
 </html>

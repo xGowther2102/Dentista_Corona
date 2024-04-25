@@ -1,7 +1,8 @@
-<?php require_once '../pruebas_edwin/test2.php'; ?>
+<?php require_once '../assets/MENU/index.php'; ?>
 
-<div class="main-content">
-    <!-- Contenido principal -->
-    <?php require_once './graph.php' ; ?>
-</div>
-<div class="content-strip"></div>
+<main class="dark-mod">
+    <div>
+        <!-- Contenido principal -->
+        <?php require_once './graph.php'; ?>
+    </div>
+</main>

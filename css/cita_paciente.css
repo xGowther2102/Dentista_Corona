@@ -1,0 +1,176 @@
+.container {
+    max-width: 800px;
+    /* Ajustado el ancho para que las columnas queden en la misma línea */
+    margin: 6% auto;
+    color: #1C3059;
+}
+
+/* Estilos para el contenedor del formulario */
+.formulario-container {
+    background-color: #eeeeee;
+    /* Cambiar color de fondo */
+    border-radius: 11px;
+    /* Añadir bordes redondeados */
+    border-color: #010e28;
+    padding: 20px;
+    /* Añadir espacio interno */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    /* Añadir sombra */
+}
+
+.formulario-container label {
+    color: #1C3059;
+}
+
+/* Estilos para el título del formulario */
+.formulario-container h1 {
+    color: #007bff;
+    /* Cambiar color del título */
+    margin-bottom: 20px;
+    /* Añadir espacio abajo del título */
+}
+
+/* Estilos para los campos del formulario */
+.formulario-container .form-group {
+    margin-bottom: 20px;
+    /* Añadir espacio entre los campos */
+}
+
+/* Estilos para los botones del formulario */
+.formulario-container .btn-container {
+    margin-top: 30px;
+    /* Añadir espacio arriba de los botones */
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+/* Estilos para las columnas */
+.col-left,
+.col-right {
+    width: 45%;
+    /* Ancho ajustado para dejar espacio entre las columnas */
+    float: left;
+    margin-right: 5%;
+}
+
+/* Estilos para los botones */
+.btn-container {
+    text-align: center;
+    clear: both;
+    /* Limpiar flotados para que los botones queden centrados */
+    margin-top: 15px;
+    /* Espacio entre los campos y los botones */
+}
+
+/* Estilos para los inputs */
+input.form-control {
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid #ccc;
+    box-shadow: none;
+}
+
+/* Estilos para la animación del select */
+select.form-control.animate-select {
+    position: relative;
+}
+
+select.form-control.animate-select::after {
+    content: '';
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    background-color: #007bff;
+    bottom: 0;
+    left: 0;
+    transition: width 0.3s ease-in-out;
+}
+
+select.form-control.animate-select:hover::after {
+    width: 100%;
+}
+
+/* Estilos para el efecto de brillo en los botones */
+.btn-shine {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-shine::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    transition: width 0.5s ease-out, height 0.5s ease-out, transform 0.5s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+    transform: translate(-50%, -50%) scale(0);
+}
+
+.btn-shine:hover::before {
+    width: 0;
+    height: 0;
+    transform: translate(-50%, -50%) scale(2);
+}
+
+
+.dark-mode {
+    background-color: #222;
+    /* Cambiar el color de fondo para el modo oscuro */
+    color: #fff;
+    /* Cambiar el color del texto para que sea legible en el fondo oscuro */
+}
+
+/* Estilos específicos para el modo oscuro */
+.dark-mode .formulario-container {
+    background-color: #414141;
+    /* Cambiar el color de fondo del contenedor del formulario */
+    color: #fff;
+    /* Cambiar el color del texto dentro del formulario */
+}
+
+
+.dark-mode .formulario-container label {
+    color: #fff;
+    /* Cambiar el color de las etiquetas del formulario */
+}
+
+/* -------------------- */
+
+.dark-mode input.form-control {
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid #23282b;
+    box-shadow: none;
+    background-color: #222;
+    color: #fff;
+}
+
+.dark-mode input.placeholder {
+    color: #fff;
+}
+
+/* Estilos específicos para el modo oscuro */
+
+
+.dark-mode .container h1 {
+    color: #fff;
+    /* Cambiar el color de las etiquetas del formulario */
+}
+
+.dark-mode .dark-mod {
+    background-color: #222;
+    /* Cambiar el color de las etiquetas del formulario */
+}
+
+.dark-mode select.form-control.animate-select {
+    background-color: #222;
+    color: #fff;
+    border-color: rgba(0, 0, 0, 0.2);
+}
+
+/* -------------------- */
