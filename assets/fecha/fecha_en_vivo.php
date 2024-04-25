@@ -1,19 +1,15 @@
 <style>
     #fecha-hora-container {
-        position: fixed;
+        position: fixed; /* Cambiado a posicionamiento fijo */
         top: 10px;
-        left: auto;
-        background-color: rgba(50, 65, 110, 0.8);
+        left: 10px;
+        background-color: rgba(50, 65, 110, 0.8); /* Fondo semi-transparente */
         color: #FFFFFF;
         padding: 5px 10px;
         border-radius: 5px;
         font-family: Arial, sans-serif;
         font-size: 14px;
-        z-index: 1000;
-        max-width: 200px; /* Ancho máximo del contenedor */
-        white-space: nowrap; /* Evitar el salto de línea */
-        overflow: hidden; /* Ocultar el texto que excede el ancho */
-        text-overflow: ellipsis; /* Mostrar puntos suspensivos si el texto excede el ancho */
+        z-index: 1000; /* Z-index alto para estar encima de otros elementos */
     }
 
     .dark-mode #fecha-hora-container {

@@ -9,73 +9,76 @@
 
 <?php require_once '../../assets/MENU/index.php'; ?>
 <main class="dark-mod">
-    <div class="container">
-        <?php require_once '../../assets/fecha/fecha_en_vivo.php'; ?>
-        <h1 class="text-center mb-4">Nuevo paciente</h1>
-        <div class="img-container" style="display: flex; justify-content: center; align-items: center;">
-            <img src="../../images/registro.png" alt="Icono" style="max-width: 65px; margin-right: 1px;">
-        </div>
-        <br>
-        <div class="formulario-container">
-            <div class="col-left">
-                <form action="#">
-                    <div class="form-group">
-                        <label for="nombre">Nombre:</label>
-                        <input type="text" class="form-control" id="nombre" placeholder="Ingrese su nombre">
-                    </div>
+    <div class="hora">
+        <div class="container">
+            <h1 class="text-center mb-4">Nuevo paciente</h1>
+            <div class="img-container" style="display: flex; justify-content: center; align-items: center;">
+                <img src="../../images/registro.png" alt="Icono" style="max-width: 65px; margin-right: 1px;">
+            </div>
+            <br>
+            <div class="formulario-container">
+                <div class="col-left">
+                    <form action="#">
+                        <div class="form-group">
+                            <label for="nombre">Nombre:</label>
+                            <input type="text" class="form-control" id="nombre" placeholder="Ingrese su nombre">
+                        </div>
 
-                    <div class="form-group">
-                        <label for="apellidoP">Apellido paterno:</label>
-                        <input type="text" class="form-control" id="apellidoP" placeholder="Ingrese su apellido paterno">
-                    </div>
+                        <div class="form-group">
+                            <label for="apellidoP">Apellido paterno:</label>
+                            <input type="text" class="form-control" id="apellidoP" placeholder="Ingrese su apellido paterno">
+                        </div>
 
-                    <div class="form-group">
-                        <label for="apellidoM">Apellido materno:</label>
-                        <input type="text" class="form-control" id="apellidoM" placeholder="Ingrese su apellido materno">
-                    </div>
+                        <div class="form-group">
+                            <label for="apellidoM">Apellido materno:</label>
+                            <input type="text" class="form-control" id="apellidoM" placeholder="Ingrese su apellido materno">
+                        </div>
 
-                    <div class="form-group">
-                        <label for="telefono">Teléfono:</label>
-                        <input type="tel" class="form-control" id="telefono" placeholder="Ingrese su número de teléfono">
-                    </div>
+                        <div class="form-group">
+                            <label for="telefono">Teléfono:</label>
+                            <input type="tel" class="form-control" id="telefono" placeholder="Ingrese su número de teléfono">
+                        </div>
 
+                    </form>
+                </div>
+
+                <div class="col-right">
+                    <form action="#">
+                        <div class="form-group">
+                            <label for="correo">Correo electrónico:</label>
+                            <input type="email" class="form-control" id="correo" placeholder="Ingrese su correo electrónico">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="fechaNacimiento">Fecha de nacimiento:</label>
+                            <input type="date" class="form-control" id="fechaNacimiento">
+                        </div>
+                        <div class="form-group">
+                            <label for="direccion">Dirección:</label>
+                            <input class="form-control" id="direccion" placeholder="Ingrese su dirección"></input>
+                        </div>
+                        <div class="form-group">
+                            <label for="sexo">Sexo:</label>
+                            <select class="form-control animate-select" id="sexo">
+                                <option value="masculino">Masculino</option>
+                                <option value="femenino">Femenino</option>
+                                <option value="otro">Otro</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="btn-container">
+                    <br>
+                    <button type="button" class="btn btn-primary btn-shine" onclick="registrarPaciente()">Registrar</button>
+                    <button type="button" class="btn btn-secondary btn-shine" data-bs-toggle="modal" data-bs-target="#errorModal">Cancelar</button>
+                </div>
                 </form>
             </div>
-
-            <div class="col-right">
-                <form action="#">
-                    <div class="form-group">
-                        <label for="correo">Correo electrónico:</label>
-                        <input type="email" class="form-control" id="correo" placeholder="Ingrese su correo electrónico">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="fechaNacimiento">Fecha de nacimiento:</label>
-                        <input type="date" class="form-control" id="fechaNacimiento">
-                    </div>
-                    <div class="form-group">
-                        <label for="direccion">Dirección:</label>
-                        <input class="form-control" id="direccion" placeholder="Ingrese su dirección"></input>
-                    </div>
-                    <div class="form-group">
-                        <label for="sexo">Sexo:</label>
-                        <select class="form-control animate-select" id="sexo">
-                            <option value="masculino">Masculino</option>
-                            <option value="femenino">Femenino</option>
-                            <option value="otro">Otro</option>
-                        </select>
-                    </div>
-                </form>
-            </div>
-            <div class="btn-container">
-                <br>
-                <button type="button" class="btn btn-primary btn-shine" onclick="registrarPaciente()">Registrar</button>
-                <button type="button" class="btn btn-secondary btn-shine" data-bs-toggle="modal" data-bs-target="#errorModal">Cancelar</button>
-            </div>
-            </form>
         </div>
     </div>
-
+    <div id="fecha-hora-container" style="font-size: 10px;">
+        <?php require_once '../../assets/fecha/fecha_en_vivo.php' ; ?>
+    </div>
     <!-- Modal de éxito -->
     <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
