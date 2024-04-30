@@ -1,0 +1,85 @@
+.dark-mode {
+    background-color: #222;
+    /* Cambiar el color de fondo para el modo oscuro */
+    color: #fff;
+    /* Cambiar el color del texto para que sea legible en el fondo oscuro */
+}
+
+/* Estilos específicos para el modo oscuro */
+.dark-mode #dataTable {
+    background-color: #414141;
+    /* Cambiar el color de fondo del contenedor del formulario */
+    color: #fff;
+    /* Cambiar el color del texto dentro del formulario */
+}
+
+.dark-mode #tabla_1 {
+    background-color: #414141;
+    /* Cambiar el color de fondo del contenedor del formulario */
+    color: #fff;
+    /* Cambiar el color del texto dentro del formulario */
+    border-radius: 10px;
+}
+
+.dark-mode #resultados_tabla {
+    background-color: #414141;
+    /* Cambiar el color de fondo del contenedor del formulario */
+    color: #fff;
+    /* Cambiar el color del texto dentro del formulario */
+    border-radius: 20px;
+}
+
+.dark-mode th {
+    background-color: #303030;
+    /* Cambiar el color de fondo del contenedor del formulario */
+    color: #eeeeee;
+    /* Cambiar el color del texto dentro del formulario */
+    border-color: rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode td {
+    background-color: #5f5f5f;
+    /* Cambiar el color de fondo del contenedor del formulario */
+    color: #ffffff;
+    /* Cambiar el color del texto dentro del formulario */
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode input.form-control {
+    border: none;
+    border-radius: 5%;
+    border-bottom: 1px solid #ffffff;
+    box-shadow: none;
+    background-color: #303030;
+    color: #fff;
+}
+
+.dark-mode th .sorting {
+    border-color: #222;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.my-4 h1{
+    text-shadow: #303030 10px;
+}

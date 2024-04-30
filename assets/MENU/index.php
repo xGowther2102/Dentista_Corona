@@ -32,15 +32,17 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="../../assets/tabla_test/sidebar_tabla.php">
                         <ion-icon name="star-outline"></ion-icon>
                         <span>Citas</span>
                     </a>
                 </li>
-                <button class="boton">
-                    <ion-icon name="add-outline"></ion-icon>
-                    <span>Nueva cita</span>
-                </button>
+                <li>
+                    <a href="../../assets/citas/agregar_cita.php">
+                        <ion-icon name="mail-unread-outline"></ion-icon>
+                        <span>Nueva cita</span>
+                    </a>
+                </li>
                 <li>
                     <a href="#">
                         <ion-icon name="paper-plane-outline"></ion-icon>
@@ -48,10 +50,10 @@
                     </a>
                 </li>
                 <li>
-                    <button class="boton">
-                        <ion-icon name="add-outline"></ion-icon>
-                        <span>N. paciente</span>
-                    </button>
+                    <a href="../../assets/pacientes/nuevo_paciente.php">
+                        <ion-icon name="paper-plane-outline"></ion-icon>
+                        <span>N. Paciente</span>
+                    </a>
                 </li>
                 <li>
                     <a href="#">
@@ -85,8 +87,6 @@
                     </div>
                 </div>
             </div>
-
-
             <div class="usuario">
                 <img src="../../assets/MENU/Jhampier.jpg" alt="">
                 <div class="info-usuario">
@@ -100,8 +100,6 @@
         </div>
 
     </div>
-
-
     <!--
 <main class="dark-mod">
 <?php
@@ -111,13 +109,6 @@
 ?>
 </main>
 -->
-
-
-
-
-
-
-
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script src="../../assets/MENU/script.js"></script>
