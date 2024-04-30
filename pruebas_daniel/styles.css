@@ -1,0 +1,10 @@
+/* styles.css */
+.container {
+    margin: 20px auto;
+    padding: 20px;
+}
+
+.search-input {
+    width: 100%; /* Utiliza el ancho completo del contenedor */
+    margin-bottom: 10px;
+}
