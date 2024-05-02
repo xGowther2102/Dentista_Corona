@@ -44,7 +44,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="../../assets/tabla_paciente/tabla_p.php">
                         <ion-icon name="paper-plane-outline"></ion-icon>
                         <span>Pacientes</span>
                     </a>
