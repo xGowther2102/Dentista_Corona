@@ -1,0 +1,25 @@
+.container {
+    max-width: 100%;
+    /* Ajustado el ancho para que las columnas queden en la misma línea */
+    margin: 50px auto;
+    color: #ffffff;
+}
+
+canvas {
+    margin: 5%;
+}
+
+.dark-mode {
+    background-color: #222;
+    /* Cambiar el color de fondo para el modo oscuro */
+    color: #fff;
+    /* Cambiar el color del texto para que sea legible en el fondo oscuro */
+}
+
+.dark-mode .row {
+    color: white;
+}
+
+.dark-mode .chart-text {
+    color: white; /* Color del texto en modo oscuro */
+}

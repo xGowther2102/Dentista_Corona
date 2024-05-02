@@ -10,7 +10,9 @@
 
 <body>
     <div class="container">
-        <img src="tu-imagen.jpg" alt="Imagen de agradecimiento">
+        <div class="img-container">
+            <img src="../../images/done.png" alt="Gracias" class="img-fluid" style="max-width: 100px;">
+        </div>
         <h1>¡Gracias por tu participación y confianza!</h1>
         <p>Nos ayudarás a mejorar nuestros servicios para proporcionarte una mejor experiencia en tus futuras visitas.</p>
     </div>

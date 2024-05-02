@@ -10,47 +10,13 @@
 
 <body>
     <div class="container">
-        <img src="acceso-denegado.jpg" alt="Acceso Denegado">
+        <div class="img-container">
+            <img src="../../images/error.png" alt="Denegado" class="img-fluid" style="max-width: 100px;">
+        </div>
         <h1>Acceso Denegado</h1>
         <p>Vuelva a tener una nueva cita para poder volver a responder este formulario.</p>
         <p>Para más información, por favor contacte con su doctor de preferencia.</p>
     </div>
-
-    <style>
-        body,
-        html {
-            height: 100%;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #f3f3f3;
-        }
-
-        .container {
-            text-align: center;
-            max-width: 600px;
-            padding: 20px;
-        }
-
-        img {
-            max-width: 100%;
-            height: auto;
-            margin-bottom: 20px;
-        }
-
-        h1 {
-            font-size: 36px;
-            color: #333;
-            margin-bottom: 10px;
-        }
-
-        p {
-            font-size: 18px;
-            color: #666;
-            margin-bottom: 30px;
-        }
-    </style>
     <script src="../../js/encuesta.js"></script>
 </body>
 
