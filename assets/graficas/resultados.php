@@ -8,20 +8,48 @@
     <!-- Incluir Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../../css/graficas.css">
+    <style>
+        /* Estilos para las gráficas */
+        .grafica-container {
+            margin-bottom: 15px;
+            /* Espacio entre las gráficas */
+        }
+
+        .grafica-container canvas {
+            border: 2.5px solid rgba(0, 0, 0, 0.3);
+            background-color: rgba(0, 0, 0, 0.025);
+            /* Color y estilo del borde */
+            border-radius: 8px;
+            /* Borde redondeado */
+        }
+
+        .dark-mode .grafica-container {
+            margin-bottom: 15px;
+            /* Espacio entre las gráficas */
+            /* Color y estilo del borde */
+            color: #fff;
+        }
+
+        .dark-mode .grafica-container canvas {
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            color: #fff;
+            background-color: rgba(255, 255, 255, 0.025);
+        }
+    </style>
 </head>
 
 <main class="dark-mod">
     <div class="container">
-        <?php require '../../assets/graficas/obtener_datos_graficas.php' ; ?>
-        <div class="row" id="graficas">
+        <?php require '../../assets/graficas/obtener_datos_graficas.php'; ?>
+        <div class="row grafica-container">
             <div class="col-md-12 col-lg-4">
-                <canvas id="graficoComodidad"></canvas>
+                <canvas id="graficoComodidad" style="width: 60%; height: auto;"></canvas>
             </div>
             <div class="col-md-12 col-lg-4">
-                <canvas id="graficoTiempo"></canvas>
+                <canvas id="graficoTiempo" style="width: 60%; height: auto;"></canvas>
             </div>
             <div class="col-md-12 col-lg-4">
-                <canvas id="graficoAtencion"></canvas>
+                <canvas id="graficoAtencion" style="width: 60%; height: auto;"></canvas>
             </div>
         </div>
     </div>
@@ -106,17 +134,29 @@
             }]
         };
 
-        // Configuración de los gráficos
         var options = {
             scales: {
+                x: {
+                    ticks: {
+                        color: 'green' // Cambiar el color de los labels del eje X
+                    }
+                },
                 y: {
                     beginAtZero: true,
                     ticks: {
                         stepSize: 20,
                         callback: function(value) {
                             return value + '%';
-                        }
+                        },
+                        color: 'green' // Cambiar el color de los labels del eje X
                     }
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: '',
+                    color: 'red' // Cambiar el color del título de la gráfica
                 }
             }
         };
@@ -125,19 +165,40 @@
         var graficoComodidad = new Chart(ctxComodidad, {
             type: 'bar',
             data: dataComodidad,
-            options: options
+            options: Object.assign({}, options, {
+                plugins: {
+                    title: {
+                        text: 'Niveles de Satisfacción - Comodidad y Limpieza',
+                        color: 'orange' // Cambiar el color del título de la gráfica
+                    }
+                }
+            })
         });
 
         var graficoTiempo = new Chart(ctxTiempo, {
             type: 'bar',
             data: dataTiempo,
-            options: options
+            options: Object.assign({}, options, {
+                plugins: {
+                    title: {
+                        text: 'Niveles de Satisfacción - Tiempo de Espera',
+                        color: 'purple' // Cambiar el color del título de la gráfica
+                    }
+                }
+            })
         });
 
         var graficoAtencion = new Chart(ctxAtencion, {
             type: 'bar',
             data: dataAtencion,
-            options: options
+            options: Object.assign({}, options, {
+                plugins: {
+                    title: {
+                        text: 'Niveles de Satisfacción - Atención del Doctor',
+                        color: 'green' // Cambiar el color del título de la gráfica
+                    }
+                }
+            })
         });
     </script>
 </main>

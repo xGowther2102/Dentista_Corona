@@ -14,7 +14,7 @@
 </head>
 
 <main class="dark-mod">
-    <h1 class="my-4" style="text-align: center; color: rgb(155, 155, 155); border: 1px black;">Lista de Pacientes</h1>
+    <h1 class="my-4" style="text-align: center; color: rgb(155, 155, 155); border: 1px black;">Lista de Citas</h1>
     <br>
     <div class="container">
         <div class="table-responsive">

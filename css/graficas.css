@@ -5,9 +5,20 @@
     color: #ffffff;
 }
 
-canvas {
-    margin: 5%;
+/* Estilos para las gráficas */
+.grafica-container {
+    margin-bottom: 15px;
+    margin: 10%;
+    /* Espacio entre las gráficas */
 }
+
+.grafica-container canvas {
+    border: 2px solid rgba(0, 0, 0, 0.5);
+    /* Color y estilo del borde */
+    border-radius: 8px;
+    /* Borde redondeado */
+}
+
 
 .dark-mode {
     background-color: #222;
@@ -21,5 +32,6 @@ canvas {
 }
 
 .dark-mode .chart-text {
-    color: white; /* Color del texto en modo oscuro */
+    color: white;
+    /* Color del texto en modo oscuro */
 }
