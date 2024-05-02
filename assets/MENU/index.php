@@ -32,7 +32,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="../../assets/tabla_test/sidebar_tabla.php">
+                    <a href="../../assets/citas/tabla_citas.php">
                         <ion-icon name="star-outline"></ion-icon>
                         <span>Citas</span>
                     </a>
