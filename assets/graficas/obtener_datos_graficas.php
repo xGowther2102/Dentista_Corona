@@ -19,7 +19,7 @@ $result = $conn->query($sql);
 $respuestas = array();
 
 if ($result->num_rows > 0) {
-  while($row = $result->fetch_assoc()) {
+  while ($row = $result->fetch_assoc()) {
     $respuestas[] = $row;
   }
 }
@@ -96,5 +96,23 @@ if (!empty($respuestas)) {
   }
 }
 
+// Consulta para obtener el total de IDs
+$total_encuestados_query = "SELECT COUNT(id) AS total_encuestados FROM encuesta_satisfaccion";
+$total_encuestados_result = $conn->query($total_encuestados_query);
+if ($total_encuestados_result->num_rows > 0) {
+  $row = $total_encuestados_result->fetch_assoc();
+  $total_encuestados = $row["total_encuestados"];
+} else {
+  $total_encuestados = 0;
+}
+
+// Consulta para obtener el último ID
+$ultimo_id_query = "SELECT DATE_FORMAT(MAX(fecha_hora), '%Y-%m-%d %h:%i:%s %p') AS ultimo_id FROM encuesta_satisfaccion";
+$ultimo_id_result = $conn->query($ultimo_id_query);
+if ($ultimo_id_result->num_rows > 0) {
+  $row = $ultimo_id_result->fetch_assoc();
+  $ultimo_id = $row["ultimo_id"];
+} else {
+  $ultimo_id = 0;
+}
 $conn->close();
-?>

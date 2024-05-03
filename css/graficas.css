@@ -6,10 +6,17 @@
 }
 
 /* Estilos para las gráficas */
-.grafica-container {
+/*.grafica-container {
     margin-bottom: 15px;
     margin: 10%;
+    }
     /* Espacio entre las gráficas */
+
+.container h1 {
+    color: #007bff;
+    /* Cambiar color del título */
+    margin-bottom: 20px;
+    /* Añadir espacio abajo del título */
 }
 
 .grafica-container canvas {

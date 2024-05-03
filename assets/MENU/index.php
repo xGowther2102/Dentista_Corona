@@ -18,7 +18,7 @@
     <div class="barra-lateral">
         <div>
             <div class="nombre-pagina">
-                <iconify-icon icon="ion:home"></iconify-icon>
+                <ion-icon name="home-outline"></ion-icon>
                 <span>CORONA &copy;</span>
             </div>
         </div>
