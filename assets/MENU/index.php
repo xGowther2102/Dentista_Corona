@@ -26,47 +26,47 @@
         <nav class="navegacion">
             <ul>
                 <li>
-                    <a id="inbox" href="#">
-                        <ion-icon name="mail-unread-outline"></ion-icon>
+                    <a href="#">
+                        <ion-icon name="home-outline"></ion-icon>
                         <span>Panel Principal</span>
                     </a>
                 </li>
                 <li>
                     <a href="../../assets/citas/tabla_citas.php">
-                        <ion-icon name="star-outline"></ion-icon>
+                        <ion-icon name="albums-outline"></ion-icon>
                         <span>Citas</span>
                     </a>
                 </li>
                 <li>
                     <a href="../../assets/citas/agregar_cita.php">
-                        <ion-icon name="mail-unread-outline"></ion-icon>
+                        <ion-icon name="add-outline"></ion-icon>
                         <span>Nueva cita</span>
                     </a>
                 </li>
                 <li>
                     <a href="../../assets/tabla_paciente/tabla_p.php">
-                        <ion-icon name="paper-plane-outline"></ion-icon>
+                        <ion-icon name="people-outline"></ion-icon>
                         <span>Pacientes</span>
                     </a>
                 </li>
                 <li>
                     <a href="../../assets/pacientes/nuevo_paciente.php">
-                        <ion-icon name="paper-plane-outline"></ion-icon>
+                        <ion-icon name="person-add-outline"></ion-icon>
                         <span>N. Paciente</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
-                        <ion-icon name="document-text-outline"></ion-icon>
-                        <span style="font-size: 1em;">Informacion de la
-                            <br>app web</span>
+                    <a href="../../assets/graficas/graficas.php">
+                        <ion-icon name="stats-chart-outline"></ion-icon>
+                        <span>Graficas</span>
                     </a>
                 </li>
                 <li>
-
-                </li>
-                <li>
-
+                    <a href="#">
+                        <ion-icon name="reader-outline"></ion-icon>
+                        <span style="font-size: 1em;">Informacion de la
+                            <br>app web</span>
+                    </a>
                 </li>
             </ul>
         </nav>
