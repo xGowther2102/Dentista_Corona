@@ -26,7 +26,7 @@
         <nav class="navegacion">
             <ul>
                 <li>
-                    <a href="#">
+                    <a href="../../assets/panel_principal/index.php">
                         <ion-icon name="home-outline"></ion-icon>
                         <span>Panel Principal</span>
                     </a>
