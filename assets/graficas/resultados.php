@@ -8,11 +8,15 @@
     <!-- Incluir Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../../css/graficas.css">
+    <!-- Incluir html2canvas (versión más reciente compatible con Promises) -->
+    <!-- Incluir html2canvas (versión más reciente compatible con Promises) -->
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.3.2/dist/html2canvas.min.js"></script>
+
     <?php require '../../css/grafica_css.php'; ?>
 </head>
 
 <main class="dark-mod">
-    <div class="container" style="max-width: 100%; margin: 30px auto;">
+    <div id="contenidoImprimir" class="container" style="max-width: 100%; margin: 30px auto;">
         <?php require '../../assets/graficas/obtener_datos_graficas.php'; ?>
         <h1 class="text-center mb-4">RESULTADOS DE ENCUESTA</h1>
         <div class="row">
@@ -45,6 +49,9 @@
                     </tbody>
                 </table>
             </div>
+            <div class="container mt-5">
+                <button class="btn btn-primary" onclick="imprimirPagina()">Guardar como Imagen</button>
+            </div>
         </div>
     </div>
 
@@ -53,7 +60,21 @@
     <!-- Incluir Bootstrap 5 JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <?php require '../../js/graficas_js.php'; ?>
+    <script>
+        // Función para imprimir y guardar como imagen
+        function imprimirPagina() {
+            const contenidoParaImprimir = document.getElementById('contenidoImprimir');
 
+            // Capturar el contenido del contenedor como una imagen
+            html2canvas(contenidoParaImprimir).then(canvas => {
+                // Crear un enlace para descargar la imagen
+                const link = document.createElement('a');
+                link.download = 'resultados_graficas.png'; // Nombre del archivo
+                link.href = canvas.toDataURL(); // Convertir el canvas a un enlace de descarga
+                link.click(); // Simular clic en el enlace para iniciar la descarga
+            });
+        }
+    </script>
 </main>
 
 </html>
