@@ -83,11 +83,11 @@ var options = {
         y: {
             beginAtZero: true,
             ticks: {
-                stepSize: 20,
+                stepSize: 1, // Cambiar el paso de los ticks según tu necesidad
                 callback: function(value) {
-                    return value + '%';
+                    return value; // Mostrar valores absolutos en lugar de porcentajes
                 },
-                color: 'green' // Cambiar el color de los labels del eje X
+                color: 'green' // Cambiar el color de los labels del eje Y
             }
         }
     },

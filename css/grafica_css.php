@@ -10,7 +10,7 @@
 
     /* Estilos para las gráficas */
     .grafica-container canvas {
-        border: 2px solid rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(0, 0, 0, 0.3);
         background-color: rgba(0, 0, 0, 0.030);
         /* Color y estilo del borde */
         border-radius: 8px;
@@ -50,6 +50,32 @@
         /* Convertir el texto en mayúscula */
     }
 
+    .modal-header {
+        color: #000;
+    }
+
+    .modal-body #descripcionModal {
+        color: #000;
+    }
+
+    .dark-mode .modal-header #confirmModalLabel,
+    #descripcionModal {
+        color: #fff;
+    }
+
+    .dark-mode .modal-content {
+        background-color: #222;
+        border-color: #234;
+    }
+
+    .dark-mode .modal-header {
+        border-color: #234;
+    }
+
+    .dark-mode .modal-footer {
+        border-color: #234;
+    }
+
     .dark-mode .container h1 {
         color: #fff;
         /* Cambiar color del título */
@@ -63,7 +89,7 @@
     }
 
     .dark-mode .grafica-container canvas {
-        border: 2px solid rgba(255, 255, 255, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.5);
         color: #fff;
         background-color: rgba(255, 255, 255, 0.030);
     }
