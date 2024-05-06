@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Restablecer Contraseña</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="icon" href="../../images/Logo_Big.png" type="image/png">
+    <link rel="icon" href="./images/Logo_Big.png" type="image/png">
     <style>
         /* Add custom CSS styles */
         body {
@@ -130,7 +130,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="img-container">
-                    <img src="../../images/Logo_Big.png" alt="Login Image" class="img-fluid">
+                    <img src="./images/Logo_Big.png" alt="Login Image" class="img-fluid">
                 </div>
             </div>
             <div class="col-md-6">
@@ -141,7 +141,7 @@
                     <div class="card-body">
                         <br>
                         <div class="img-container">
-                            <img src="../../images/reset.png" alt="Icono" style="max-width: 100px; margin-right: 1px;">
+                            <img src="./images/reset.png" alt="Icono" style="max-width: 100px; margin-right: 1px;">
                         </div>
                         <br>
                         <br>
@@ -165,7 +165,7 @@
                         </form>
                         <br>
                         <br>
-                        <a href="../../assets/login/login.php">Volver al inicio de sesión</a>
+                        <a href="./login.php">Volver al inicio de sesión</a>
                         <br>
                     </div>
                 </div>

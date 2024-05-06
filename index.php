@@ -143,11 +143,11 @@
                         <br>
                         <div class="row">
                             <div class="col-sm-6">
-                                <a href="./assets/login/login.php" class="btn btn-primary">Ir a iniciar sesion</a>
+                                <a href="./iniciar_sesion" class="btn btn-primary">Ir a iniciar sesion</a>
                             </div>
                             <br>
                             <div class="col-sm-6">
-                                <a href="./assets/login/register.php" class="btn btn-secondary">Ir a registrar un usuario</a>
+                                <a href="./registrar_usuario" class="btn btn-secondary">Ir a registrar un usuario</a>
                             </div>
                         </div>
                         <br>

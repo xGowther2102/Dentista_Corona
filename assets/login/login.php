@@ -148,7 +148,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="img-container">
-                    <img src="../../images/Logo_Big.png" alt="Login Image" class="img-fluid">
+                    <img src="./images/Logo_Big.png" alt="Login Image" class="img-fluid">
                 </div>
             </div>
             <div class="col-md-6">
@@ -159,7 +159,7 @@
                     <div class="card-body">
                         <br>
                         <div class="img-container">
-                            <img src="../../images/doctor.png" alt="Icono" style="max-width: 100px; margin-right: 1px;">
+                            <img src="./images/doctor.png" alt="Icono" style="max-width: 100px; margin-right: 1px;">
                         </div>
                         <br>
                         <br>

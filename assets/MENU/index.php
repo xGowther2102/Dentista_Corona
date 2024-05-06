@@ -18,7 +18,7 @@
     <div class="barra-lateral">
         <div>
             <div class="nombre-pagina">
-                <ion-icon name="home-outline"></ion-icon>
+                    <img src="../../images/home.ico" alt="CORONA" width="55px" height="55px">
                 <span>CORONA &copy;</span>
             </div>
         </div>
@@ -26,37 +26,37 @@
         <nav class="navegacion">
             <ul>
                 <li>
-                    <a href="../../assets/panel_principal/index.php">
+                    <a href="../../pages/inicio/panel_principal.php">
                         <ion-icon name="home-outline"></ion-icon>
                         <span>Panel Principal</span>
                     </a>
                 </li>
                 <li>
-                    <a href="../../assets/citas/tabla_citas.php">
+                    <a href="../../pages/citas/lista_citas.php">
                         <ion-icon name="albums-outline"></ion-icon>
                         <span>Citas</span>
                     </a>
                 </li>
                 <li>
-                    <a href="../../assets/citas/agregar_cita.php">
+                    <a href="../../pages/citas/agregar_cita.php">
                         <ion-icon name="add-outline"></ion-icon>
                         <span>Nueva cita</span>
                     </a>
                 </li>
                 <li>
-                    <a href="../../assets/tabla_paciente/tabla_p.php">
+                    <a href="../../pages/pacientes/lista_pacientes.php">
                         <ion-icon name="people-outline"></ion-icon>
                         <span>Pacientes</span>
                     </a>
                 </li>
                 <li>
-                    <a href="../../assets/pacientes/nuevo_paciente.php">
+                    <a href="../../pages/pacientes/nuevo_paciente.php">
                         <ion-icon name="person-add-outline"></ion-icon>
                         <span>N. Paciente</span>
                     </a>
                 </li>
                 <li>
-                    <a href="../../assets/graficas/graficas.php">
+                    <a href="../../pages/graficas/results.php">
                         <ion-icon name="stats-chart-outline"></ion-icon>
                         <span>Graficas</span>
                     </a>

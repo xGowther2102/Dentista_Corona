@@ -155,7 +155,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="img-container">
-                    <img src="../../images/Logo_Big.png" alt="Login Image" class="img-fluid">
+                    <img src="./images/Logo_Big.png" alt="Login Image" class="img-fluid">
                 </div>
             </div>
             <div class="col-md-6">
@@ -166,7 +166,7 @@
                     <div class="card-body">
                     
                         <div class="img-container">
-                            <img src="../../images/registro.png" alt="Icono" style="max-width: 100px; margin-right: 1px;">
+                            <img src="./images/registro.png" alt="Icono" style="max-width: 100px; margin-right: 1px;">
                         </div>
                    
                         <form action="#">
@@ -218,7 +218,7 @@
                             </div>
                         </form>
                         <br>
-                        <a href="../../assets/login/login.php">¿Ya tienes cuenta?</a>
+                        <a href="./assets/login/login.php">¿Ya tienes cuenta?</a>
                     </div>
                 </div>
             </div>
