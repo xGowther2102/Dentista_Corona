@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-05-2024 a las 06:02:49
+-- Tiempo de generación: 07-05-2024 a las 08:11:55
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -46,7 +46,38 @@ INSERT INTO `encuesta_satisfaccion` (`id`, `comodidad_limpieza`, `tiempo_espera`
 (4, 4, 1, 1, '2024-05-01 23:02:52'),
 (5, 4, 4, 4, '2024-05-01 23:38:24'),
 (6, 5, 3, 3, '2024-05-02 01:03:36'),
-(7, 5, 5, 5, '2024-05-02 03:29:53');
+(7, 5, 5, 5, '2024-05-02 03:29:53'),
+(8, 2, 4, 2, '2024-05-02 06:01:47'),
+(9, 2, 1, 3, '2024-05-02 19:19:34'),
+(10, 2, 3, 4, '2024-05-02 19:22:13'),
+(11, 1, 2, 1, '2024-05-03 05:22:24'),
+(12, 2, 3, 2, '2024-05-06 02:20:00'),
+(13, 3, 4, 2, '2024-05-06 02:28:30'),
+(14, 5, 5, 3, '2024-05-06 02:36:24'),
+(15, 2, 3, 3, '2024-05-06 02:38:11'),
+(16, 3, 3, 2, '2024-05-06 02:40:14'),
+(17, 4, 2, 5, '2024-05-06 22:14:23');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuarios`
+--
+
+CREATE TABLE `usuarios` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(255) NOT NULL,
+  `usuario` varchar(255) NOT NULL,
+  `correo` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`id`, `nombre`, `usuario`, `correo`, `password`) VALUES
+(1, 'Edwin Ronnyel vv', 'qwerty', 'prueba_guardarxdxd@gmail.com', 'Edwin135');
 
 --
 -- Índices para tablas volcadas
@@ -59,6 +90,12 @@ ALTER TABLE `encuesta_satisfaccion`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -66,7 +103,13 @@ ALTER TABLE `encuesta_satisfaccion`
 -- AUTO_INCREMENT de la tabla `encuesta_satisfaccion`
 --
 ALTER TABLE `encuesta_satisfaccion`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
+-- AUTO_INCREMENT de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
