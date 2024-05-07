@@ -12,6 +12,7 @@ require '../../vendor/phpmailer/phpmailer/src/PHPMailer.php';
 require '../../vendor/phpmailer/phpmailer/src/Exception.php';
 require '../../vendor/phpmailer/phpmailer/src/SMTP.php';
 
+$config = include 'config.php';
 
 // Datos de la conexión a la base de datos
 $servername = "localhost";
@@ -26,6 +27,7 @@ $conn = new mysqli($servername, $username, $password, $database);
 if ($conn->connect_error) {
     die("Error de conexión: " . $conn->connect_error);
 }
+
 
 // Lógica para restablecer la contraseña
 
@@ -44,6 +46,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mail = new PHPMailer(true);
 
         try {
+            $email = getenv('EMAIL');
+            $password = getenv('PASSWORD');
             $mail = new PHPMailer(true);
             $mail->isSMTP();
             $mail->SMTPAuth = true;
@@ -55,8 +59,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $mail->SMTPSecure = 'tls';
             $mail->SMTPAuth   = true;
             $mail->CharSet = 'UTF-8';
-            $mail->Username = 'consultorio.corona@outlook.com';
-            $mail->Password = "Corona135";
+            $mail->Username = $config['email'];
+            $mail->Password = $config['password'];
             $mail->setFrom('consultorio.corona@outlook.com', 'Consultorio Dental CORONA');
             $mail->addAddress($correo);
             $rutaImagen = 'https://edwher57.freehostia.com/IMAGENES/CORONA.jpeg';

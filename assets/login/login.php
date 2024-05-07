@@ -185,13 +185,13 @@
                                 </div>
                                 <br>
                                 <div class="col-sm-6">
-                                    <a href="../../../Dentista_Corona/assets/login/register.php" class="btn btn-secondary">Registrar un usuario</a>
+                                    <a href="../../../Dentista_Corona/registrar_usuario.php" class="btn btn-secondary">Registrar un usuario</a>
                                 </div>
                             </div>
                         </form>
                         <br>
                         <br>
-                        <a href="../../../Dentista_Corona/assets/forgotpassword/reset.php">¿Olvido su contraseña?</a>
+                        <a href="../../../Dentista_Corona/cambiar_pswd.php">¿Olvido su contraseña?</a>
                         <br>
                     </div>
                 </div>

@@ -30,7 +30,7 @@
                         </div>
                         <br>
                         <br>
-                        <form id="passwordResetForm" action="../../assets/conexion/reset_pswd.php" method="POST" onsubmit="return validarCorreoElectronico(event);">
+                        <form id="passwordResetForm" action="./assets/conexion/reset_pswd.php" method="POST" onsubmit="return validarCorreoElectronico(event);">
                             <!-- Explicación sobre el campo Correo Electrónico -->
                             <p>Por favor, ingrese su correo electrónico para restablecer su contraseña:</p>
                             <br>

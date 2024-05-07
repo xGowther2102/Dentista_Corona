@@ -102,7 +102,7 @@
 
                         <br>
                         <div>
-                            <a href="../../../Dentista_Corona/assets/login/login.php">¿Ya tienes cuenta?</a>
+                            <a href="../../../Dentista_Corona/iniciar_sesion.php">¿Ya tienes cuenta?</a>
                         </div>
                     </div>
                 </div>

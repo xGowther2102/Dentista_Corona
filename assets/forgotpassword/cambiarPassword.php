@@ -1,68 +1,3 @@
-<?php
-// Datos de la conexión a la base de datos
-$servername = "localhost";
-$username = "root";
-$password = "";
-$database = "dentista_corona";
-
-// Crear conexión
-$conn = new mysqli($servername, $username, $password, $database);
-
-// Verificar la conexión
-if ($conn->connect_error) {
-    die("Error de conexión: " . $conn->connect_error);
-}
-
-// Verificar si se han enviado los datos para cambiar la contraseña
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Verificar la validez del token y del correo electrónico
-    if (isset($_POST['correo']) && isset($_POST['token']) && isset($_POST['password'])) {
-        $correo = $_POST['correo'];
-        $token = $_POST['token'];
-        $password = $_POST['password'];
-
-        // Verificar si el correo existe en la base de datos
-        $check_email_query = "SELECT correo FROM usuarios WHERE correo = '$correo'";
-        $email_result = $conn->query($check_email_query);
-
-        if ($email_result->num_rows > 0) {
-            // El correo existe en la base de datos, proceder con el cambio de contraseña
-
-            // Verificar si el token es válido y no ha expirado
-            $sql = "SELECT * FROM reset_password WHERE correo = '$correo' AND token = '$token' AND expires_at > NOW()";
-            $result = $conn->query($sql);
-
-            if ($result->num_rows > 0) {
-                // El token es válido, actualizar la contraseña del usuario
-                $update_sql = "UPDATE usuarios SET password = '$password' WHERE correo = '$correo'";
-                if ($conn->query($update_sql) === TRUE) {
-                    // Eliminar el token de la tabla de restablecimiento de contraseña
-                    $delete_sql = "DELETE FROM reset_password WHERE correo = '$correo' AND token = '$token'";
-                    $conn->query($delete_sql);
-
-                    // Redireccionar a otra página después de 2 segundos
-                    header('Refresh: 2; URL=../../assets/forgotpassword/confirmar_contra.php');
-                    exit(); // Asegura que el script se detenga después de la redirección
-                } else {
-                    echo "Error al actualizar la contraseña.";
-                    exit();
-                }
-            } else {
-                echo "El token para restablecer la contraseña no es válido o ha expirado.";
-                exit();
-            }
-        } else {
-            echo "El correo proporcionado no está registrado en nuestra base de datos. Verifica que sea el correo correcto.";
-            exit();
-        }
-    }
-}
-
-// Cerrar la conexión a la base de datos al finalizar
-$conn->close();
-?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -73,6 +8,7 @@ $conn->close();
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="icon" href="../../images/Logo_Big.png" type="image/png">
     <link rel="stylesheet" href="../../css/registro_login.css">
+    <?php include '../../assets/conexion/verificar_tokens.php' ; ?>
 </head>
 
 <body>
@@ -125,7 +61,10 @@ $conn->close();
                                     <button type="button" class="btn btn-outline-light btn-eye" id="toggleConfirmPassword">👁️</button>
                                 </div>
                             </div>
-
+                            <br>
+                            <div id="passwordError" class="alert alert-danger d-none" role="alert">La contraseña debe tener al menos 8 caracteres con al menos una mayúscula y un número.</div>
+                            <div id="confirmPasswordError" class="alert alert-danger d-none" role="alert">Las contraseñas no coinciden.</div>
+                            <br>
                             <div class="row">
                                 <div class="col-sm-6">
                                     <button type="submit" class="btn btn-primary">Restablecer</button>
@@ -141,43 +80,7 @@ $conn->close();
             </div>
         </div>
     </div>
-
-    <script>
-        const togglePassword = document.getElementById('togglePassword');
-        const password = document.getElementById('password');
-
-        togglePassword.addEventListener('click', function() {
-            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-            password.setAttribute('type', type);
-            this.textContent = type === 'password' ? '👁️' : '👁️';
-        });
-
-        const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
-        const confirmPassword = document.getElementById('confirm_password');
-
-        toggleConfirmPassword.addEventListener('click', function() {
-            const type = confirmPassword.getAttribute('type') === 'password' ? 'text' : 'password';
-            confirmPassword.setAttribute('type', type);
-            this.textContent = type === 'password' ? '👁️' : '👁️';
-        });
-
-        document.getElementById('cambiarContrasenaForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            let contrasena = document.getElementById('password').value;
-
-            // Validación de la contraseña utilizando una expresión regular
-            let strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})");
-            if (!strongRegex.test(contrasena)) {
-                document.getElementById('mensajeContrasena').innerHTML = 'La contraseña debe tener al menos 8 caracteres, una letra en mayúscula y un número.';
-                document.getElementById('mensajeContrasena').style.display = 'block';
-            } else {
-                // Si la contraseña es válida, enviar el formulario para procesar el cambio
-                this.submit();
-            }
-        });
-    </script>
-
+    <script src="../../js/verificar_tokens.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 
