@@ -152,7 +152,7 @@
                         </div>
                         <br>
                         <br>
-                        <a href="./assets/forgotpassword/reset.php">¿Olvido su contraseña?</a>
+                        <a href="./cambiar_pswd.php">¿Olvido su contraseña?</a>
                         <br>
                     </div>
                 </div>

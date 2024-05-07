@@ -191,7 +191,7 @@
                         </form>
                         <br>
                         <br>
-                        <a href="../../assets/forgotpassword/reset.php">¿Olvido su contraseña?</a>
+                        <a href="../../../Dentista_Corona/assets/forgotpassword/reset.php">¿Olvido su contraseña?</a>
                         <br>
                     </div>
                 </div>

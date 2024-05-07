@@ -34,15 +34,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if ($result->num_rows > 0) {
                 // El token es válido, actualizar la contraseña del usuario
-                $update_sql = "UPDATE usuarios SET password = '$password' WHERE correo = '$correo'";
+                $update_sql = "UPDATE usuarios SET contrasena = '$password' WHERE correo = '$correo'";
                 if ($conn->query($update_sql) === TRUE) {
                     // Eliminar el token de la tabla de restablecimiento de contraseña
                     $delete_sql = "DELETE FROM reset_password WHERE correo = '$correo' AND token = '$token'";
                     $conn->query($delete_sql);
-
-                    // Redireccionar a otra página después de 2 segundos
-                    header('Refresh: 2; URL=../../assets/forgotpassword/confirmar_contra.php');
-                    exit(); // Asegura que el script se detenga después de la redirección
+                    echo '
+                    <!DOCTYPE html>
+                    <html>
+                    <head>
+                        <title>Éxito</title>
+                        <meta http-equiv="refresh" content="2;url=../../pages/login/login.php"> // Redirecciona después de 2 segundos
+                        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+                    </head>
+                    <body>
+                        <!-- Puedes agregar aquí el contenido que desees mostrar -->
+                    </body>
+                    </html>
+                    ';
                 } else {
                     echo "Error al actualizar la contraseña.";
                     exit();
@@ -61,7 +70,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 // Cerrar la conexión a la base de datos al finalizar
 $conn->close();
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
