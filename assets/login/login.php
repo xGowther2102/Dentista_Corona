@@ -185,7 +185,7 @@
                                 </div>
                                 <br>
                                 <div class="col-sm-6">
-                                    <a href="./register.php" class="btn btn-secondary">Registrar un usuario</a>
+                                    <a href="../../../Dentista_Corona/assets/login/register.php" class="btn btn-secondary">Registrar un usuario</a>
                                 </div>
                             </div>
                         </form>
