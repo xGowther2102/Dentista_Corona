@@ -5,11 +5,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrar nueva cita</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="../../css/cita_paciente.css">
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
+
+<style>
+    .modal-header {
+        color: #010e28;
+    }
+
+    .modal-body {
+        color: #010e28;
+    }
+
+    .dark-mode .modal-header {
+        color: #ffffff;
+        background-color: #222;
+        border: #230;
+    }
+
+    .dark-mode .modal-footer {
+        color: #ffffff;
+        background-color: #222;
+        border: #230;
+    }
+
+    .dark-mode .modal-body {
+        color: #ffffff;
+        background-color: #222;
+        border: #230;
+    }
+</style>
 
 <body>
     <?php require_once '../../assets/MENU/index.php'; ?>
@@ -31,8 +58,7 @@
 
                             <div class="form-group">
                                 <label for="apellidoP">Apellido Paterno:</label>
-                                <input type="text" class="form-control" id="apellidoP"
-                                    placeholder="Ingrese su apellido paterno">
+                                <input type="text" class="form-control" id="apellidoP" placeholder="Ingrese su apellido paterno">
                             </div>
 
                             <div class="form-group">
@@ -44,8 +70,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="apellidoM">Apellido Materno:</label>
-                                <input type="text" class="form-control" id="apellidoM"
-                                    placeholder="Ingrese su apellido materno">
+                                <input type="text" class="form-control" id="apellidoM" placeholder="Ingrese su apellido materno">
                             </div>
 
                             <div class="form-group">
@@ -59,8 +84,7 @@
                         <br>
                         <button type="button" class="btn btn-primary btn-shine" onclick="registrarCita()">Agendar
                             Cita</button>
-                        <button type="button" class="btn btn-secondary btn-shine" data-bs-toggle="modal"
-                            data-bs-target="#errorModal">Cancelar</button>
+                        <button type="button" class="btn btn-secondary btn-shine" data-bs-toggle="modal" data-bs-target="#errorModal">Cancelar</button>
                     </div>
                 </form>
             </div>
@@ -86,9 +110,7 @@
             </div>
         </div>
     </main>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../../js/cita_paciente.js"></script>

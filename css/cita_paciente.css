@@ -155,11 +155,12 @@ select.form-control.animate-select:hover::after {
     color: #fff;
 }
 
-.dark-mode textarea{
+.dark-mode textarea {
     background-color: #222;
     color: #fff;
     border-color: rgba(0, 0, 0, 0.2);
 }
+
 /* Estilos específicos para el modo oscuro */
 
 
@@ -180,3 +181,21 @@ select.form-control.animate-select:hover::after {
 }
 
 /* -------------------- */
+
+.modal-header {
+    color: #010e28;
+}
+
+.modal-body {
+    color: #010e28;
+}
+
+.dark-mode .modal-header {
+    color: #ffffff;
+    background-color: #222;
+}
+
+.dark-mode .modal-body {
+    color: #ffffff;
+    background-color: #222;
+}

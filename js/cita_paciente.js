@@ -8,7 +8,7 @@ function registrarCita() {
     if (nombre !== '' && apellidoP !== '' && apellidoM !== '' && date !== '' && tratamiento !== '') {
         $.ajax({
             type: 'POST',
-            url: '../conexion/registro_citas.php',
+            url: '../../assets/conexion/registro_citas.php',
             data: {
                 nombre: nombre,
                 apellidoP: apellidoP,
