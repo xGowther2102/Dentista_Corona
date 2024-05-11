@@ -93,6 +93,9 @@
                                 if (response.trim() === "success") {
                                     // Muestra el modal de éxito
                                     $("#successModal").modal("show");
+                                    $("#successModal").on("hidden.bs.modal", function() {
+                                        location.reload(true); // Recarga la página desde el servidor
+                                    });
                                 } else {
                                     // Maneja otros casos de respuesta del servidor
                                     alert("Error al procesar la solicitud.");
