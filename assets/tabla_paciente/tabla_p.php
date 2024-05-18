@@ -1,3 +1,17 @@
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$database = "Dentista_Corona";
+$conn = mysqli_connect($servername, $username, $password, $database);
+if(!$conn){
+    die("Conexión fallida: " . mysqli_connect_error());
+}
+$sql = "SELECT id, nombre, apellido_paterno, apellido_materno, telefono, email, TIMESTAMPDIFF(YEAR, fecha_nacimiento, CURDATE()) AS edad, historial_medico, sexo
+FROM pacientes WHERE id = id";
+$resultado = mysqli_query($conn, $sql);
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -10,6 +24,8 @@
     <!-- DataTables CSS -->
     <link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../../css/tabla_citas.css">
+    <link rel="stylesheet" href="../../css/tabla.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <?php require '../../assets/MENU/index.php'; ?>
 </head>
 
@@ -21,52 +37,39 @@
             <table id="dataTable" class="table table-striped table-bordered">
                 <thead id="tabla_1">
                     <tr>
-                        <th>ID</th>
+                        <th>Paciente</th>
                         <th>Nombre Completo</th>
                         <th>Telefono</th>
                         <th>Correo</th>
                         <th>Edad</th>
                         <th>Sexo</th>
                         <th>Antecedentes</th>
-                        <th>Acciones</th> <!-- Nueva columna para acciones -->
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody id="resultados_tabla">
-                    <!-- Filas de la tabla con botones de Eliminar y Actualizar -->
-                    <tr>
-                        <td>1</td>
-                        <td>Juan Carlos Hernandez</td>
-                        <td>2223334099</td>
-                        <td>juanCarl@gmail.com</td>
-                        <td>22</td>
-                        <td>Helicoptero Apache</td>
-                        <td>eutanacia</td>
-                        <td>
-                            <!-- Botón Eliminar -->
-                            <button class="btn btn-danger btn-sm eliminar-btn">Eliminar</button>
-                            <!-- Botón Actualizar -->
-                            <button class="btn btn-primary btn-sm actualizar-btn">Actualizar</button>
-                        </td>
-                    </tr>
-                    
-                    <!-- Filas de la tabla con botones de Eliminar y Actualizar -->
-                    <tr>
-                        <td>2</td>
-                        <td>Avigail Gutierres Ambar</td>
-                        <td>2221114099</td>
-                        <td>avigut@gmail.com</td>
-                        <td>29</td>
-                        <td>Mujer</td>
-                        <td>Extraccion de lengua</td>
-                        <td>
-                            <!-- Botón Eliminar -->
-                            <button class="btn btn-danger btn-sm eliminar-btn">Eliminar</button>
-                            <!-- Botón Actualizar -->
-                            <button class="btn btn-primary btn-sm actualizar-btn">Actualizar</button>
-                        </td>
-                    </tr>
-                    <!-- Filas de la tabla con botones de Eliminar y Actual--->
-                    <!-- Repite estas filas para cada dato -->
+                <?php
+                    $numFila = 1;
+                        while($fila = mysqli_fetch_assoc($resultado)) {
+                            echo "<tr>";
+                            echo "<td>".$numFila."</td>";
+                            echo "<td>".$fila['nombre']." ".$fila['apellido_paterno']." ".$fila['apellido_materno']."</td>";
+                            echo "<td>".$fila['telefono']."</td>";
+                            echo "<td>".$fila['email']."</td>";
+                            echo "<td>".$fila['edad']."</td>";
+                            echo "<td>".$fila['sexo']."</td>";
+                            echo "<td>".$fila['historial_medico']."</td>";
+                            echo "<td>";
+                            echo "<div class='btn-group' role='group'>";
+                            echo "<button class='btn btn-success btn-sm rounded-circle m-1 citas-btn' data-bs-toggle='modal' data-bs-target='#citasModal' data-id='".$fila['id']."'>+</button>";
+                            echo "<button class='btn btn-danger btn-sm rounded-circle m-1 eliminar-btn' data-id='".$fila['id']."'>-</button>";
+                            echo "<button class='btn btn-primary btn-sm rounded-circle m-1 actualizar-btn' data-bs-toggle='modal' data-bs-target='#actualizarModal' data-id='".$fila['id']."'>✎</button>";
+                            echo "</div>";
+                            echo "</td>";                                                      
+                            echo "</tr>";
+                            $numFila++;
+                        }
+                        ?>
                 </tbody>
             </table>
         </div>
@@ -88,5 +91,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
 <!-- Script para actualizar filas y exportar a Excel -->
 <script src="../../js/tabla_citas.js"></script>
-
+<script src="../../js/tabla.js"></script>
+<script src="../../js/eliminar.js"></script>
 </html>

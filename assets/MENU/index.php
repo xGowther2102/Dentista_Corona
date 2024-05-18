@@ -1,3 +1,17 @@
+<?php
+session_start();
+if(!isset($_SESSION['username']) || !isset($_SESSION['correo'])){ 
+    // Si el usuario no ha iniciado sesión, puedes redirigirlo a la página de inicio de sesión
+    header("Location: ../../iniciar_sesion.php");
+    exit();
+}
+
+// Obtener los datos del usuario de la sesión
+$usuario = $_SESSION['username']; 
+$correo = $_SESSION['correo'];
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -87,18 +101,36 @@
                     </div>
                 </div>
             </div>
+
+            
             <div class="usuario">
-                <img src="../../assets/MENU/Jhampier.jpg" alt="">
-                <div class="info-usuario">
-                    <div class="nombre-email">
-                        <span class="nombre">HOLA</span>
-                        <span class="email">HOLA@gmail.com</span>
-                    </div>
-                    <ion-icon name="ellipsis-vertical-outline"></ion-icon>
-                </div>
+    <img src="../../assets/MENU/Jhampier.jpg" alt="">
+    <div class="info-usuario">
+        <div class="nombre-email">
+            <span class="nombre"><?php echo $usuario; ?></span>
+            <span class="email"><?php echo $correo; ?></span>
+        </div>
+        <div class="opciones-usuario">
+            <ion-icon name="ellipsis-vertical-outline" onclick="mostrarOpciones()"></ion-icon>
+            <div id="opciones" class="opciones">
+                <button onclick="editarContraseña()">Editar Contraseña</button>
+                <button onclick="editarImagen()">Editar Imagen</button>
+                <button onclick="confirmarCerrarSesion()">Cerrar Sesión</button>
             </div>
         </div>
+    </div>
+</div>
 
+
+
+
+
+
+
+
+
+        </div>
+        </div>
     </div>
     <!--
 <main class="dark-mod">
@@ -109,6 +141,66 @@
 ?>
 </main>
 -->
+<script>
+
+function mostrarOpciones() {
+    var opciones = document.querySelector('.opciones');
+    opciones.style.display = opciones.style.display === 'block' ? 'none' : 'block';
+}
+
+window.onclick = function(event) {
+    var opciones = document.querySelector('.opciones');
+    var icono = document.querySelector('.opciones-usuario ion-icon');
+    if (event.target != opciones && event.target != icono) {
+        opciones.style.display = 'none';
+    }
+};
+function confirmarCerrarSesion() {
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: '¿Deseas cerrar sesión?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, cerrar sesión',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            cerrarSesion();
+        }
+    });
+}
+
+function cerrarSesion() {
+    window.location.href = "../MENU/logout.php";
+}
+
+function editarContraseña() {
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: '¿Deseas cambiar contraseña?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, cerrar sesión',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            cerrarSesion();
+        }
+    });
+}
+
+function cerrarSesion() {
+    window.location.href = "../conexion/reset_pswd.php";
+}
+
+
+
+
+</script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script src="../../assets/MENU/script.js"></script>

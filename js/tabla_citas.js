@@ -30,16 +30,16 @@ $(document).ready(function () {
       '<"row"<"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>', // Ajustar diseño de la tabla
   });
 
-  $("#dataTable tbody").on("click", "button.actualizar-btn", function () {
-    var data = table.row($(this).parents("tr")).data();
-    // Aquí puedes implementar la lógica para actualizar la fila
-    console.log("Actualizar fila:", data);
-  });
+  // $("#dataTable tbody").on("click", "button.actualizar-btn", function () {
+  //   var data = table.row($(this).parents("tr")).data();
+  //   // Aquí puedes implementar la lógica para actualizar la fila
+  //   console.log("Actualizar fila:", data);
+  // });
 
-  $("#dataTable tbody").on("click", "button.eliminar-btn", function () {
-    var row = table.row($(this).parents("tr"));
-    row.remove().draw();
-  });
+  // $("#dataTable tbody").on("click", "button.eliminar-btn", function () {
+  //   var row = table.row($(this).parents("tr"));
+  //   row.remove().draw();
+  // });
 
   $("#exportar-btn").click(function () {
     var data = table.rows().data().toArray();

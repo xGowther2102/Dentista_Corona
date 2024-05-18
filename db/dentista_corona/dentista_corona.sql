@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 08-05-2024 a las 00:06:54
--- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+-- Tiempo de generación: 16-05-2024 a las 23:26:46
+-- Versión del servidor: 10.4.25-MariaDB
+-- Versión de PHP: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,6 +20,30 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `dentista_corona`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `citas`
+--
+
+CREATE TABLE `citas` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `apellido_paterno` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `apellido_materno` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tratamiento` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `fecha_hora` datetime NOT NULL,
+  `paciente_id` int(11) DEFAULT NULL,
+  `estatus` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `citas`
+--
+
+INSERT INTO `citas` (`id`, `nombre`, `apellido_paterno`, `apellido_materno`, `tratamiento`, `fecha_hora`, `paciente_id`, `estatus`) VALUES
+(2, 'alberto', 'santiago', 'santiago', 'caries', '2024-05-13 16:55:00', 1, 'pendiente');
 
 -- --------------------------------------------------------
 
@@ -62,13 +86,41 @@ INSERT INTO `encuesta_satisfaccion` (`id`, `comodidad_limpieza`, `tiempo_espera`
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `pacientes`
+--
+
+CREATE TABLE `pacientes` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(50) DEFAULT NULL,
+  `apellido_paterno` varchar(50) DEFAULT NULL,
+  `apellido_materno` varchar(50) DEFAULT NULL,
+  `telefono` varchar(20) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `fecha_nacimiento` date DEFAULT NULL,
+  `direccion` varchar(255) DEFAULT NULL,
+  `historial_medico` text DEFAULT NULL,
+  `sexo` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `pacientes`
+--
+
+INSERT INTO `pacientes` (`id`, `nombre`, `apellido_paterno`, `apellido_materno`, `telefono`, `email`, `fecha_nacimiento`, `direccion`, `historial_medico`, `sexo`) VALUES
+(1, 'alberto', 'andres', 'santiago', '2349872180', 'albert@gmail.com', '2003-01-14', 'mexico', 'picado', 'hombre'),
+(4, 'doralina', 'santiago', 'santiago', '6789053467', 'doralina34@gmail.com', '2003-12-11', 'loma', 'femenino', 'dientes'),
+(5, 'alberto', 'santiago', 'santiago', '6789053467', 'de_cartoncito@gmail.com', '2003-12-25', 'loma', 'masculino', 'muela picada');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `reset_password`
 --
 
 CREATE TABLE `reset_password` (
   `id` int(11) NOT NULL,
-  `correo` varchar(255) NOT NULL,
-  `token` varchar(255) NOT NULL,
+  `correo` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `expires_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -103,20 +155,41 @@ INSERT INTO `reset_password` (`id`, `correo`, `token`, `expires_at`) VALUES
 
 CREATE TABLE `usuarios` (
   `id` int(11) NOT NULL,
-  `nombre` varchar(255) NOT NULL,
-  `usuario` varchar(255) NOT NULL,
-  `correo` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL
+  `nombre` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `usuario` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `correo` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`id`, `nombre`, `usuario`, `correo`, `password`) VALUES
+(5, 'alberto', 'es_un_muñeco', 'de_cartoncito@gmail.com', '12carlosAS'),
+(6, 'doralina', 'doralina7', 'doralina34@gmail.com', 'as12hioA');
 
 --
 -- Índices para tablas volcadas
 --
 
 --
+-- Indices de la tabla `citas`
+--
+ALTER TABLE `citas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_paciente` (`paciente_id`);
+
+--
 -- Indices de la tabla `encuesta_satisfaccion`
 --
 ALTER TABLE `encuesta_satisfaccion`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `pacientes`
+--
+ALTER TABLE `pacientes`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -137,10 +210,22 @@ ALTER TABLE `usuarios`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `citas`
+--
+ALTER TABLE `citas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT de la tabla `encuesta_satisfaccion`
 --
 ALTER TABLE `encuesta_satisfaccion`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT de la tabla `pacientes`
+--
+ALTER TABLE `pacientes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `reset_password`
@@ -152,7 +237,17 @@ ALTER TABLE `reset_password`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `citas`
+--
+ALTER TABLE `citas`
+  ADD CONSTRAINT `fk_paciente` FOREIGN KEY (`paciente_id`) REFERENCES `pacientes` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

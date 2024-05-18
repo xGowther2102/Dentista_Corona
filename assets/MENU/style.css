@@ -261,6 +261,61 @@ body {
 }
 
 /*---------------> Usuario*/
+
+.barra-lateral .usuario .opciones-usuario ion-icon {
+    cursor: pointer;
+}
+
+.barra-lateral .usuario {
+    position: relative;
+}
+
+.barra-lateral .usuario .opciones {
+    position: absolute;
+    bottom: calc(100% + 5px); 
+    right: -50px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: none;
+    width: 200px; 
+    z-index: 999;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.barra-lateral .usuario .opciones button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    text-align: left;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    transition: background-color 0.3s ease; 
+}
+
+.barra-lateral .usuario .opciones button:hover {
+    background-color: #f5f5f5;
+}
+
+.barra-lateral .usuario .opciones button:last-child {
+    border-top: 1px solid #ccc; 
+}
+
+.barra-lateral .usuario .opciones button:first-child {
+    border-radius: 10px 10px 0 0; 
+}
+
+.barra-lateral .usuario .opciones button:last-child {
+    border-radius: 0 0 10px 10px; 
+}
+
+
+
+
+/*--------------------------------*/
 .barra-lateral .usuario {
     width: 100%;
     display: flex;

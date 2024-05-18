@@ -1,3 +1,17 @@
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$database = "Dentista_Corona";
+$conn = mysqli_connect($servername, $username, $password, $database);
+if(!$conn){
+    die("Conexión fallida: " . mysqli_connect_error());
+}
+$sql = "SELECT p.id, p.nombre, p.apellido_paterno, p.apellido_materno, p.historial_medico AS antecedentes, c.fecha_hora, c.estatus, c.tratamiento
+FROM citas c INNER JOIN pacientes p ON c.paciente_id = p.id;";
+$resultado = mysqli_query($conn, $sql);
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -31,34 +45,40 @@
                             <th>Antecedentes</th>
                             <th>Estatus</th>
                             <th>Fecha y hora</th>
-                            <th>Acciones</th> <!-- Nueva columna para acciones -->
+                            <th>Acciones</th> 
                         </tr>
                     </thead>
                     <tbody id="resultados_tabla">
-                        <!-- Filas de la tabla con botones de Eliminar y Actualizar -->
-                        <tr>
-                            <td>Maria Pérez</td>
-                            <td>Doctora</td>
-                            <td>Diente picado</td>
-                            <td>Pendiente</td>
-                            <td>2023-01-15</td>
-                            <td>
-                                <button class="btn btn-danger btn-sm eliminar-btn">Eliminar</button>
-                                <button class="btn btn-primary btn-sm actualizar-btn" data-bs-toggle="modal" data-bs-target="#actualizarModal">Actualizar</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Juan García</td>
-                            <td>Enfermero</td>
-                            <td>Caries</td>
-                            <td>Pendiente</td>
-                            <td>2023-01-20</td>
-                            <td>
-                                <button class="btn btn-danger btn-sm eliminar-btn">Eliminar</button>
-                                <button class="btn btn-primary btn-sm actualizar-btn" data-bs-toggle="modal" data-bs-target="#actualizarModal">Actualizar</button>
-                            </td>
-                        </tr>
-                        <!-- Repite estas filas para cada dato -->
+                    <?php
+                        while($fila = mysqli_fetch_assoc($resultado)) {
+                            echo "<tr>";
+                            echo "<td>".$fila['nombre']." ".$fila['apellido_paterno']." ".$fila['apellido_materno']."</td>";
+                            echo "<td>".$fila['tratamiento']."</td>";
+                            echo "<td>".$fila['antecedentes']."</td>";
+                            echo "<td style='color: ";
+                            
+                            // Comparar la fecha y hora actual con la de la cita
+                            $fechaHoraCita = strtotime($fila['fecha_hora']);
+                            $fechaHoraActual = strtotime(date('Y-m-d H:i:s'));
+                            
+                            if ($fechaHoraActual < $fechaHoraCita - (5 * 60)) { // Si faltan más de 5 minutos para la cita
+                                echo "gray"; // Pendiente
+                            } else if ($fechaHoraActual < $fechaHoraCita + (3 * 60)) { // Si la cita está próxima o pasada por hasta 3 minutos
+                                echo "yellow"; // Posponer
+                            } else {
+                                echo "red"; // Cancelado
+                            }
+                            
+                            echo "'>".$fila['estatus']."</td>";
+                            echo "<td>".$fila['fecha_hora']."</td>";
+                            echo "<td>";
+                            echo "<button class='btn btn-danger btn-sm eliminar-btn' data-id='".$fila['id']."'>Eliminar</button>";
+                            echo "<button class='btn btn-primary btn-sm actualizar-btn' data-bs-toggle='modal' data-bs-target='#actualizarModal' data-id='".$fila['id']."'>Actualizar</button>";
+                            echo "</td>";
+                            echo "</tr>";
+                        }
+                        
+                        ?>
                     </tbody>
                 </table>
             </div>
@@ -96,50 +116,87 @@
             </div>
         </div>
     </div>
-
-    <!-- Modal para actualizar cita -->
-    <div class="modal fade" id="actualizarModal" tabindex="-1" aria-labelledby="actualizarModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dark">
-            <div class="modal-content bg-dark text-light">
-                <div class="modal-header border-0">
-                    <h5 class="modal-title" id="actualizarModalLabel">Actualizar Cita</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="formulario-actualizar">
-                        <div class="mb-3">
-                            <label for="nombreCompleto" class="form-label">Nombre Completo</label>
-                            <input type="text" class="form-control" id="nombreCompleto" name="nombreCompleto" required value="Juan García">
-                        </div>
-                        <div class="mb-3">
-                            <label for="tratamiento" class="form-label">Tratamiento</label>
-                            <input type="text" class="form-control" id="tratamiento" name="tratamiento" required value="Enfermero">
-                        </div>
-                        <div class="mb-3">
-                            <label for="antecedentes" class="form-label">Antecedentes</label>
-                            <input type="text" class="form-control" id="antecedentes" name="antecedentes" required value="Caries">
-                        </div>
-                        <div class="mb-3">
-                            <label for="estatus" class="form-label">Estatus</label>
-                            <select class="form-select" id="estatus" name="estatus" required>
-                                <option value="">Seleccionar</option>
-                                <option value="completado">Completado</option>
-                                <option value="cancelado">Cancelado</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="fechaHora" class="form-label">Fecha y Hora</label>
-                            <input type="text" class="form-control" id="fechaHora" name="fechaHora" required value="2022-06-20">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Actualizar</button>
-                    </form>
-                </div>
-                <div class="modal-footer border-0">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                </div>
+    
+   <!-- Modal para actualizar cita -->
+<div class="modal fade" id="actualizarModal" tabindex="-1" aria-labelledby="actualizarModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dark">
+        <div class="modal-content bg-dark text-light">
+            <div class="modal-header border-0">
+                <h5 class="modal-title" id="actualizarModalLabel">Actualizar Cita</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="actualizarform">
+                    <div class="mb-3">
+                        <label for="nombreCompleto" class="form-label">Nombre Completo</label>
+                        <input type="text" class="form-control" id="nombreCompleto" name="nombre" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="tratamiento" class="form-label">Tratamiento</label>
+                        <input type="text" class="form-control" id="tratamiento" name="tratamient" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="antecedentes" class="form-label">Antecedentes</label>
+                        <input type="text" class="form-control" id="antecedentes" name="antecedente" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="estatus" class="form-label">Estatus</label>
+                        <select class="form-select" id="estatus" name="estatu" required>
+                            <option value="">Seleccionar</option>
+                            <option value="completado">Completado</option>
+                            <option value="pendiente">Pendiente</option>
+                            <option value="cancelado">Cancelado</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="fechaHora" class="form-label">Fecha y Hora</label>
+                        <input type="datetime-local" class="form-control" id="fechaHora" name="fechaHor" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Actualizar</button>
+                </form>
+            </div>
+            <div class="modal-footer border-0">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
+</div>
+<script>
+$(document).ready(function() {
+    $('.actualizar-btn').click(function() {
+        var idCita = $(this).data('id');
+        
+        // Enviar solicitud AJAX para obtener los detalles de la cita
+        $.ajax({
+            type: 'POST',
+            url: '../../assets/panel_principal/obtener_datos.php', // Script PHP para obtener detalles de la cita
+            data: {
+                id: idCita
+            },
+            success: function(response) {
+                // Utilizar la respuesta JSON directamente
+                var cita = response;
+                console.log(cita);
+                // Llenar los campos del formulario con la información de la cita
+                $('#nombreCompleto').val(cita.nombre + ' ' + cita.apellido_paterno + ' ' + cita.apellido_materno);
+                $('#tratamiento').val(cita.tratamiento);
+                $('#antecedentes').val(cita.antecedentes);
+                $('#estatus').val(cita.estatus);
+                $('#fechaHora').val(cita.fecha_hora);
+                
+                // Mostrar el modal
+                $('#actualizarModal').modal('show');
+            },
+            error: function(xhr, status, error) {
+                // Manejar errores de AJAX (si es necesario)
+                console.error(xhr.responseText);
+            }
+        });
+    });
+});
+
+</script>
+
 
     <!-- SweetAlert2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -153,83 +210,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
     <!-- Script para actualizar filas y exportar a Excel -->
     <script src="../../js/tabla_citas.js"></script>
-    <script>
-        // Función para filtrar citas pasadas y mostrarlas en el modal
-        $(document).on('click', '#citas-pasadas-btn', function() {
-            $('#citasPasadasModal').modal('show');
-            // Agregar la lógica para llenar la tabla de citas pasadas aquí
-            $('#citas-pasadas-tabla').empty(); // Limpiar la tabla antes de agregar nuevas filas
-
-            // Aquí debes hacer una solicitud AJAX para obtener los datos de las citas pasadas desde tu servidor
-            $.ajax({
-                url: 'obtener_citas_pasadas.php', // URL del script PHP que obtiene los datos de las citas pasadas
-                type: 'GET',
-                success: function(response) {
-                    // La respuesta debe ser un array de objetos JSON con los datos de las citas pasadas
-                    var citasPasadas = JSON.parse(response);
-                    citasPasadas.forEach(function(cita) {
-                        var estatusColor = cita.estatus === 'Completado' ? 'text-success' : 'text-danger'; // Color verde para completado, rojo para pendiente
-                        $('#citas-pasadas-tabla').append(`
-                            <tr>
-                                <td>${cita.nombreCompleto}</td>
-                                <td>${cita.tratamiento}</td>
-                                <td>${cita.antecedentes}</td>
-                                <td class="${estatusColor}">${cita.estatus}</td>
-                                <td>${cita.fechaHora}</td>
-                            </tr>
-                        `);
-                    });
-                },
-                error: function(xhr, status, error) {
-                    console.error('Error al obtener las citas pasadas:', error);
-                }
-            });
-        });
-
-        // Función para mostrar alerta 5 minutos antes de la hora de la cita
-        function mostrarAlertaProximaCita() {
-            // Obtener la hora actual
-            var horaActual = new Date();
-            // Sumar 5 minutos a la hora actual
-            horaActual.setMinutes(horaActual.getMinutes() + 5);
-            // Mostrar la alerta
-            Swal.fire({
-                icon: 'info',
-                title: 'Recordatorio de Cita',
-                text: 'Tu cita está próxima, por favor prepárate.',
-                timer: 5000 // Duración de la alerta en milisegundos (5 segundos)
-            });
-        }
-
-        // Función para mostrar alerta al llegar la hora de la cita
-        function mostrarAlertaHoraCita() {
-            Swal.fire({
-                title: '¿Qué deseas hacer con la cita?',
-                showDenyButton: true,
-                showCancelButton: true,
-                confirmButtonText: 'Completado',
-                denyButtonText: 'Propuesto',
-                cancelButtonText: 'Cancelar',
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Lógica si se marca como completado
-                    Swal.fire('¡Cita marcada como completada!', '', 'success');
-                } else if (result.isDenied) {
-                    // Lógica si se marca como propuesto
-                    Swal.fire('¡Cita marcada como propuesta!', '', 'info');
-                } else {
-                    // Lógica si se cancela la cita
-                    Swal.fire('¡Cita cancelada!', '', 'error');
-                }
-            });
-        }
-
-        // Programar alerta para 5 minutos antes de la hora de la cita
-        setTimeout(mostrarAlertaProximaCita, 300000); // 5 minutos antes (300,000 milisegundos)
-
-        // Programar alerta para la hora de la cita
-        setTimeout(mostrarAlertaHoraCita, 600000); // Hora de la cita (600,000 milisegundos = 10 minutos)
-    </script>
+    <script src="../../js/eliminar_principal.js"></script>
+  <!--  <script src="../../assets/panel_principal/JS/Actualizar.js"></script>--->
 </body>
 
 </html>
