@@ -168,30 +168,39 @@ $(document).ready(function() {
         
         // Enviar solicitud AJAX para obtener los detalles de la cita
         $.ajax({
-            type: 'POST',
-            url: '../../assets/panel_principal/obtener_datos.php', // Script PHP para obtener detalles de la cita
-            data: {
-                id: idCita
-            },
-            success: function(response) {
-                // Utilizar la respuesta JSON directamente
-                var cita = response;
-                console.log(cita);
-                // Llenar los campos del formulario con la información de la cita
-                $('#nombreCompleto').val(cita.nombre + ' ' + cita.apellido_paterno + ' ' + cita.apellido_materno);
-                $('#tratamiento').val(cita.tratamiento);
-                $('#antecedentes').val(cita.antecedentes);
-                $('#estatus').val(cita.estatus);
-                $('#fechaHora').val(cita.fecha_hora);
-                
-                // Mostrar el modal
-                $('#actualizarModal').modal('show');
-            },
-            error: function(xhr, status, error) {
-                // Manejar errores de AJAX (si es necesario)
-                console.error(xhr.responseText);
-            }
-        });
+    type: 'POST',
+    url: '../../assets/panel_principal/obtener_datos.php', // Script PHP para obtener detalles de la cita
+    data: {
+        id: idCita
+    },
+    success: function(response) {
+        // Verificar si la respuesta contiene un error
+        if (response.error) {
+            console.error(response.error);
+            return;
+        }
+        
+        // Utilizar la respuesta JSON directamente
+        var cita = response;
+        console.log(cita);
+        console.log(cita.nombre);  // Asegúrate de que "nombre" esté en el JSON
+
+        // Llenar los campos del formulario con la información de la cita
+        $('#nombreCompleto').val(cita.nombre + ' ' + cita.apellido_paterno + ' ' + cita.apellido_materno);
+        $('#tratamiento').val(cita.tratamiento);
+        $('#antecedentes').val(cita.antecedentes);
+        $('#estatus').val(cita.estatus);
+        $('#fechaHora').val(cita.fecha_hora);
+
+        // Mostrar el modal
+        $('#actualizarModal').modal('show');
+    },
+    error: function(xhr, status, error) {
+        // Manejar errores de AJAX (si es necesario)
+        console.error(xhr.responseText);
+    }
+});
+
     });
 });
 

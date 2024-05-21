@@ -76,6 +76,12 @@ $correo = $_SESSION['correo'];
                     </a>
                 </li>
                 <li>
+                    <a href="../../pages/configuraciones/prueba.php">
+                        <ion-icon name="stats-chart-outline"></ion-icon>
+                        <span>Configuracion  <br> de horarios</span>
+                    </a>
+                </li>
+                <li>
                     <a href="#">
                         <ion-icon name="reader-outline"></ion-icon>
                         <span style="font-size: 1em;">Informacion de la
