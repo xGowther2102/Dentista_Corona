@@ -145,29 +145,33 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="nombreAct">Nombre:</label>
-                                    <input type="text" class="form-control" id="nombreAct" name="nombre" required>
+                                    <input type="text" class="form-control" id="nombreCit" name="nombre" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="apellidoPaternoAct">Apellido paterno:</label>
-                                    <input type="text" class="form-control" id="apellidoPaternoAct" name="apellido_paterno" required>
+                                    <input type="text" class="form-control" id="apellidoPaternoCit" name="apellido_paterno" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="apellidoMaternoAct">Apellido materno:</label>
-                                    <input type="text" class="form-control" id="apellidoMaternoAct" name="apellido_materno" required>
+                                    <input type="text" class="form-control" id="apellidoMaternoCit" name="apellido_materno" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
+                            <div class="form-group">
+                                    <label for="correo">Correo electrónico:</label>
+                                    <input type="email" class="form-control" id="correoCit" name="email" required>
+                                </div>
                                 <div class="form-group">
-                                    <label for="fechaNacimientoAct">Fecha de consulta:</label>
-                                    <input type="date" class="form-control" id="fecha" name="fecha" required>
+                                    <label for="fecha">Fecha de consulta:</label>
+                                    <input type="date" class="form-control" id="fechaCit" name="fecha" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="direccionAct">Hora:</label>
-                                    <select id="hora" name="hora" required></select>
+                                    <select id="horaCit" name="hora" required></select>
                                 </div>
                                 <div class="form-group">
                                     <label for="sexoAct">Tratamiento:</label>
-                                    <input type="text" class="form-control" id="tratamiento" name="tratamiento" required>
+                                    <input type="text" class="form-control" id="tratamientoCit" name="tratamiento" required>
                                 </div>
                             </div>
                         </div>
@@ -235,66 +239,41 @@
             $('.citas-btn').click(function() {
                 var id = $(this).data('id');
                 console.log(id);
-                $.ajax({
-                    url: '../../assets/tabla_paciente/obtener_datos.php',
+                const res = $.ajax({
+                    url: '../../assets/tabla_paciente/obtener_for_cita.php',
                     method: 'POST',
                     data: {
                         id: id
                     },
                     dataType: 'json',
                     success: function(response) {
-                        $('#idPacienteActualizar').val(response.id);
-                        $('#nombreAct').val(response.nombre);
-                        $('#apellidoPaternoAct').val(response.apellido_paterno);
-                        $('#apellidoMaternoAct').val(response.apellido_materno);
-                        $('#telefonoAct').val(response.telefono);
-                        $('#correoAct').val(response.email);
-                        $('#fechaNacimientoAct').val(response.fecha_nacimiento);
-                        $('#direccionAct').val(response.direccion);
-                        $('#historialAct').val(response.historial_medico);
-                        $('#sexoAct').val(response.sexo);
-                        $('#actualizarModal').modal('show');
-                    }
-                });
-            });
-
-            // Cuando se envíe el formulario de actualización
-            $('#citasForm').submit(function(e) {
-                e.preventDefault();
-                $.ajax({
-                    url: '../../assets/tabla_paciente/actualizar_datos.php',
-                    method: 'POST',
-                    data: $(this).serialize(),
-                    success: function(response) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: '¡Éxito!',
-                            text: 'Actualizado correctamente'
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                $('#citasForm').modal('hide');
-                                location.reload();
-                            }
-                        });
+                        $('#idPacienteCita').val(response.id);
+                        $('#nombreCit').val(response.nombre);
+                        $('#apellidoPaternoCit').val(response.apellido_paterno);
+                        $('#apellidoMaternoCit').val(response.apellido_materno);
+                        $('#telefonoCit').val(response.telefono);
+                        $('#correoCit').val(response.email);
+                        $('#fechaCit').val(response.fecha_nacimiento);
+                        $('#direccionCit').val(response.direccion);
+                        $('#historialCit').val(response.historial_medico);
+                        $('#sexoCit').val(response.sexo);
+                        $('#citasModal').modal('show');
                     }
                 });
             });
         });
-    </script>
-
-    <script>
         $(document).ready(function() {
-            $('#fecha').on('change', function() {
+            $('#fechaCit').on('change', function() {
                 var fecha = $(this).val();
                 $.ajax({
-                    url: './getAvailableHours.php',
+                    url: '../../assets/tabla_paciente/getAvailableHours.php',
                     type: 'GET',
                     data: {
                         fecha: fecha
                     },
                     dataType: 'json',
                     success: function(data) {
-                        var horaSelect = $('#hora');
+                        var horaSelect = $('#horaCit');
                         horaSelect.empty();
                         $.each(data, function(index, hora) {
                             var option = $('<option>').text(hora).val(hora);
@@ -307,12 +286,12 @@
                 });
             });
 
-            $('#appointment-form').submit(function(event) {
+            $('#citasForm').submit(function(event) {
                 event.preventDefault(); // Evita el envío del formulario por defecto
                 var formData = $(this).serialize(); // Serializa los datos del formulario
 
                 $.ajax({
-                    url: './scheduleAppointment.php',
+                    url: '../../assets/tabla_paciente/scheduleAppointment.php',
                     type: 'POST',
                     data: formData,
                     dataType: 'json',
@@ -322,13 +301,13 @@
                         Swal.fire({
                             icon: 'success',
                             title: '¡Éxito!',
-                            text: data.message
+                            text: 'Cita registrada'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                $('#actualizarModal').modal('hide');
+                                location.reload();
+                            }
                         });
-                        // Restablecer los valores del formulario
-                        $('#nombre').val('');
-                        $('#email').val('');
-                        $('#fecha').val('');
-                        $('#hora').empty(); // Limpiar opciones de hora si es necesario
                     },
                     error: function(xhr, status, error) {
                         console.error('Error al enviar el formulario:', error);
@@ -337,7 +316,6 @@
             });
         });
     </script>
-
 </main>
 <!-- Bootstrap y DataTables JS -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
