@@ -1,17 +1,3 @@
-<?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$database = "Dentista_Corona";
-$conn = mysqli_connect($servername, $username, $password, $database);
-if(!$conn){
-    die("Conexión fallida: " . mysqli_connect_error());
-}
-$sql = "SELECT id, nombre, apellido_paterno, apellido_materno, telefono, email, TIMESTAMPDIFF(YEAR, fecha_nacimiento, CURDATE()) AS edad, historial_medico, sexo
-FROM pacientes WHERE id = id";
-$resultado = mysqli_query($conn, $sql);
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -26,6 +12,10 @@ $resultado = mysqli_query($conn, $sql);
     <link rel="stylesheet" href="../../css/tabla_citas.css">
     <link rel="stylesheet" href="../../css/tabla.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
     <?php require '../../assets/MENU/index.php'; ?>
 </head>
 
@@ -48,28 +38,29 @@ $resultado = mysqli_query($conn, $sql);
                     </tr>
                 </thead>
                 <tbody id="resultados_tabla">
-                <?php
+                    <?php
+                    require "../../assets/tabla_paciente/datos_tabla.php";
                     $numFila = 1;
-                        while($fila = mysqli_fetch_assoc($resultado)) {
-                            echo "<tr>";
-                            echo "<td>".$numFila."</td>";
-                            echo "<td>".$fila['nombre']." ".$fila['apellido_paterno']." ".$fila['apellido_materno']."</td>";
-                            echo "<td>".$fila['telefono']."</td>";
-                            echo "<td>".$fila['email']."</td>";
-                            echo "<td>".$fila['edad']."</td>";
-                            echo "<td>".$fila['sexo']."</td>";
-                            echo "<td>".$fila['historial_medico']."</td>";
-                            echo "<td>";
-                            echo "<div class='btn-group' role='group'>";
-                            echo "<button class='btn btn-success btn-sm rounded-circle m-1 citas-btn' data-bs-toggle='modal' data-bs-target='#citasModal' data-id='".$fila['id']."'>+</button>";
-                            echo "<button class='btn btn-danger btn-sm rounded-circle m-1 eliminar-btn' data-id='".$fila['id']."'>-</button>";
-                            echo "<button class='btn btn-primary btn-sm rounded-circle m-1 actualizar-btn' data-bs-toggle='modal' data-bs-target='#actualizarModal' data-id='".$fila['id']."'>✎</button>";
-                            echo "</div>";
-                            echo "</td>";                                                      
-                            echo "</tr>";
-                            $numFila++;
-                        }
-                        ?>
+                    while ($fila = mysqli_fetch_assoc($resultado)) {
+                        echo "<tr>";
+                        echo "<td>" . $numFila . "</td>";
+                        echo "<td>" . $fila['nombre'] . " " . $fila['apellido_paterno'] . " " . $fila['apellido_materno'] . "</td>";
+                        echo "<td>" . $fila['telefono'] . "</td>";
+                        echo "<td>" . $fila['email'] . "</td>";
+                        echo "<td>" . $fila['edad'] . "</td>";
+                        echo "<td>" . $fila['sexo'] . "</td>";
+                        echo "<td>" . $fila['historial_medico'] . "</td>";
+                        echo "<td>";
+                        echo "<div class='btn-group' role='group'>";
+                        echo "<button class='btn btn-success btn-sm rounded-circle m-1 citas-btn' data-bs-toggle='modal' data-bs-target='#citasModal' data-id='" . $fila['id'] . "'>+</button>";
+                        echo "<button class='btn btn-danger btn-sm rounded-circle m-1 eliminar-btn' data-id='" . $fila['id'] . "'>-</button>";
+                        echo "<button class='btn btn-primary btn-sm rounded-circle m-1 actualizar-btn' data-bs-toggle='modal' data-bs-target='#actualizarModal' data-id='" . $fila['id'] . "'>✎</button>";
+                        echo "</div>";
+                        echo "</td>";
+                        echo "</tr>";
+                        $numFila++;
+                    }
+                    ?>
                 </tbody>
             </table>
         </div>
@@ -80,6 +71,273 @@ $resultado = mysqli_query($conn, $sql);
         <br>
         <?php require_once '../../assets/fecha/fecha_en_vivo.php'; ?>
     </div>
+    <!-- Modal de Actualización -->
+    <div class="modal fade" id="actualizarModal" tabindex="-1" aria-labelledby="actualizarModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg"> <!-- modal-lg para aumentar el tamaño del modal -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="actualizarModalLabel">Actualizar Paciente</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="actualizarForm">
+                        <input type="hidden" id="idPacienteActualizar" name="id">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="nombreAct">Nombre:</label>
+                                    <input type="text" class="form-control" id="nombreAct" name="nombre" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="apellidoPaternoAct">Apellido paterno:</label>
+                                    <input type="text" class="form-control" id="apellidoPaternoAct" name="apellido_paterno" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="apellidoMaternoAct">Apellido materno:</label>
+                                    <input type="text" class="form-control" id="apellidoMaternoAct" name="apellido_materno" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="telefonoAct">Teléfono:</label>
+                                    <input type="tel" class="form-control" id="telefonoAct" name="telefono" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="correoAct">Correo electrónico:</label>
+                                    <input type="email" class="form-control" id="correoAct" name="email" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="fechaNacimientoAct">Fecha de nacimiento:</label>
+                                    <input type="date" class="form-control" id="fechaNacimientoAct" name="fecha_nacimiento" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="direccionAct">Dirección:</label>
+                                    <input type="text" class="form-control" id="direccionAct" name="direccion" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="sexoAct">Sexo:</label>
+                                    <input type="text" class="form-control" id="sexoAct" name="sexo" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="historialAct">Antecedentes:</label>
+                                    <textarea class="form-control" id="historialAct" name="historial_medico"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Actualizar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal de CITAS -->
+    <div class="modal fade" id="citasModal" tabindex="-1" aria-labelledby="citasModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg"> <!-- modal-lg para aumentar el tamaño del modal -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="citasModalLabel">Agregar Nueva Cita</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="citasForm">
+                        <input type="hidden" id="idPacienteCita" name="id">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="nombreAct">Nombre:</label>
+                                    <input type="text" class="form-control" id="nombreAct" name="nombre" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="apellidoPaternoAct">Apellido paterno:</label>
+                                    <input type="text" class="form-control" id="apellidoPaternoAct" name="apellido_paterno" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="apellidoMaternoAct">Apellido materno:</label>
+                                    <input type="text" class="form-control" id="apellidoMaternoAct" name="apellido_materno" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="fechaNacimientoAct">Fecha de consulta:</label>
+                                    <input type="date" class="form-control" id="fecha" name="fecha" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="direccionAct">Hora:</label>
+                                    <select id="hora" name="hora" required></select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="sexoAct">Tratamiento:</label>
+                                    <input type="text" class="form-control" id="tratamiento" name="tratamiento" required>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Agregar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+     <!-------MODAL DE ACTUALIZAR-------->
+    <script>
+        $(document).ready(function() {
+            $('.actualizar-btn').click(function() {
+                var id = $(this).data('id');
+                console.log(id);
+                $.ajax({
+                    url: '../../assets/tabla_paciente/obtener_datos.php',
+                    method: 'POST',
+                    data: {
+                        id: id
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        $('#idPacienteActualizar').val(response.id);
+                        $('#nombreAct').val(response.nombre);
+                        $('#apellidoPaternoAct').val(response.apellido_paterno);
+                        $('#apellidoMaternoAct').val(response.apellido_materno);
+                        $('#telefonoAct').val(response.telefono);
+                        $('#correoAct').val(response.email);
+                        $('#fechaNacimientoAct').val(response.fecha_nacimiento);
+                        $('#direccionAct').val(response.direccion);
+                        $('#historialAct').val(response.historial_medico);
+                        $('#sexoAct').val(response.sexo);
+                        $('#actualizarModal').modal('show');
+                    }
+                });
+            });
+
+            // Cuando se envíe el formulario de actualización
+            $('#actualizarForm').submit(function(e) {
+                e.preventDefault();
+                $.ajax({
+                    url: '../../assets/tabla_paciente/actualizar_datos.php',
+                    method: 'POST',
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: '¡Éxito!',
+                            text: 'Actualizado correctamente'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                $('#actualizarModal').modal('hide');
+                                location.reload();
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+    <!-------MODAL DE CITAS-------->
+    <script>
+        $(document).ready(function() {
+            $('.citas-btn').click(function() {
+                var id = $(this).data('id');
+                console.log(id);
+                $.ajax({
+                    url: '../../assets/tabla_paciente/obtener_datos.php',
+                    method: 'POST',
+                    data: {
+                        id: id
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        $('#idPacienteActualizar').val(response.id);
+                        $('#nombreAct').val(response.nombre);
+                        $('#apellidoPaternoAct').val(response.apellido_paterno);
+                        $('#apellidoMaternoAct').val(response.apellido_materno);
+                        $('#telefonoAct').val(response.telefono);
+                        $('#correoAct').val(response.email);
+                        $('#fechaNacimientoAct').val(response.fecha_nacimiento);
+                        $('#direccionAct').val(response.direccion);
+                        $('#historialAct').val(response.historial_medico);
+                        $('#sexoAct').val(response.sexo);
+                        $('#actualizarModal').modal('show');
+                    }
+                });
+            });
+
+            // Cuando se envíe el formulario de actualización
+            $('#citasForm').submit(function(e) {
+                e.preventDefault();
+                $.ajax({
+                    url: '../../assets/tabla_paciente/actualizar_datos.php',
+                    method: 'POST',
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: '¡Éxito!',
+                            text: 'Actualizado correctamente'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                $('#citasForm').modal('hide');
+                                location.reload();
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#fecha').on('change', function() {
+                var fecha = $(this).val();
+                $.ajax({
+                    url: './getAvailableHours.php',
+                    type: 'GET',
+                    data: {
+                        fecha: fecha
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+                        var horaSelect = $('#hora');
+                        horaSelect.empty();
+                        $.each(data, function(index, hora) {
+                            var option = $('<option>').text(hora).val(hora);
+                            horaSelect.append(option);
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error al obtener las horas disponibles:', error);
+                    }
+                });
+            });
+
+            $('#appointment-form').submit(function(event) {
+                event.preventDefault(); // Evita el envío del formulario por defecto
+                var formData = $(this).serialize(); // Serializa los datos del formulario
+
+                $.ajax({
+                    url: './scheduleAppointment.php',
+                    type: 'POST',
+                    data: formData,
+                    dataType: 'json',
+                    success: function(data) {
+                        console.log(data); // Muestra la respuesta del servidor en la consola
+                        // Muestra un mensaje con SweetAlert
+                        Swal.fire({
+                            icon: 'success',
+                            title: '¡Éxito!',
+                            text: data.message
+                        });
+                        // Restablecer los valores del formulario
+                        $('#nombre').val('');
+                        $('#email').val('');
+                        $('#fecha').val('');
+                        $('#hora').empty(); // Limpiar opciones de hora si es necesario
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error al enviar el formulario:', error);
+                    }
+                });
+            });
+        });
+    </script>
+
 </main>
 <!-- Bootstrap y DataTables JS -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -91,6 +349,6 @@ $resultado = mysqli_query($conn, $sql);
 <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
 <!-- Script para actualizar filas y exportar a Excel -->
 <script src="../../js/tabla_citas.js"></script>
-<script src="../../js/tabla.js"></script>
 <script src="../../js/eliminar.js"></script>
+
 </html>

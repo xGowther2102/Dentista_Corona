@@ -1,31 +1,42 @@
 <?php
-// Conexión a la base de datos
-$servername = "localhost";
-$username = "root";
-$password = "";
-$database = "Dentista_Corona";
+// Verificar si se ha enviado un ID válido
+if(isset($_POST['id']) && !empty($_POST['id'])) {
+    // Conectar a la base de datos (reemplaza los valores según tu configuración)
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "Dentista_Corona";
 
-$conn = mysqli_connect($servername, $username, $password, $database);
+    // Crear conexión
+    $conn = new mysqli($servername, $username, $password, $dbname);
 
-if (!$conn) {
-    die("Conexión fallida: " . mysqli_connect_error());
-}
-
-if (isset($_GET['id'])) {
-    $id_paciente = $_GET['id'];
-    $sql = "SELECT p.id, p.nombre, p.apellido_paterno, p.apellido_materno, p.historial_medico AS antecedentes, c.fecha_hora, c.estatus, c.tratamiento
-    FROM citas c INNER JOIN pacientes p ON c.paciente_id = $id_paciente";
-    $resultado = mysqli_query($conn, $sql);
-    if (mysqli_num_rows($resultado) > 0) {
-        $alumno = mysqli_fetch_assoc($resultado);
-        echo json_encode($alumno);
-    } else {
-        echo json_encode(array("error" => "No se encontraron datos para el ID proporcionado."));
+    // Verificar la conexión
+    if ($conn->connect_error) {
+        die("Error de conexión: " . $conn->connect_error);
     }
+
+    // Escapar el ID para evitar inyección de SQL
+    $id = $conn->real_escape_string($_POST['id']);
+
+    // Consulta SQL para obtener los datos del paciente
+    $sql = "SELECT * FROM pacientes WHERE id = $id";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        // Obtener los datos del paciente como un array asociativo
+        $row = $result->fetch_assoc();
+        
+        // Devolver los datos como JSON para ser procesados por AJAX en JavaScript
+        echo json_encode($row);
+    } else {
+        // Si no se encontraron resultados, devolver un mensaje de error
+        echo "No se encontraron resultados para el ID proporcionado.";
+    }
+
+    // Cerrar la conexión
+    $conn->close();
 } else {
-
-    echo json_encode(array("error" => "No se proporcionó el ID del alumno."));
+    // Si no se proporcionó un ID válido, devolver un mensaje de error
+    echo "ID no válido.";
 }
-
-mysqli_close($conn);
 ?>

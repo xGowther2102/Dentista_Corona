@@ -7,8 +7,8 @@ $conn = mysqli_connect($servername, $username, $password, $database);
 if(!$conn){
     die("Conexión fallida: " . mysqli_connect_error());
 }
-$sql = "SELECT p.id, p.nombre, p.apellido_paterno, p.apellido_materno, p.historial_medico AS antecedentes, c.fecha_hora, c.estatus, c.tratamiento
-FROM citas c INNER JOIN pacientes p ON c.paciente_id = p.id;";
+$sql = "SELECT p.id, p.nombre, p.apellido_paterno, p.apellido_materno, p.historial_medico AS antecedentes, c.estatus, c.tratamiento, c.fecha, c.hora
+FROM citas c INNER JOIN pacientes p ON c.pacientes_id = p.id;";
 $resultado = mysqli_query($conn, $sql);
 ?>
 
@@ -55,22 +55,8 @@ $resultado = mysqli_query($conn, $sql);
                             echo "<td>".$fila['nombre']." ".$fila['apellido_paterno']." ".$fila['apellido_materno']."</td>";
                             echo "<td>".$fila['tratamiento']."</td>";
                             echo "<td>".$fila['antecedentes']."</td>";
-                            echo "<td style='color: ";
-                            
-                            // Comparar la fecha y hora actual con la de la cita
-                            $fechaHoraCita = strtotime($fila['fecha_hora']);
-                            $fechaHoraActual = strtotime(date('Y-m-d H:i:s'));
-                            
-                            if ($fechaHoraActual < $fechaHoraCita - (5 * 60)) { // Si faltan más de 5 minutos para la cita
-                                echo "gray"; // Pendiente
-                            } else if ($fechaHoraActual < $fechaHoraCita + (3 * 60)) { // Si la cita está próxima o pasada por hasta 3 minutos
-                                echo "yellow"; // Posponer
-                            } else {
-                                echo "red"; // Cancelado
-                            }
-                            
-                            echo "'>".$fila['estatus']."</td>";
-                            echo "<td>".$fila['fecha_hora']."</td>";
+                            echo "<td>".$fila['estatus']."</td>";
+                            echo "<td>".$fila['fecha']." ".$fila['hora']."</td>";
                             echo "<td>";
                             echo "<button class='btn btn-danger btn-sm eliminar-btn' data-id='".$fila['id']."'>Eliminar</button>";
                             echo "<button class='btn btn-primary btn-sm actualizar-btn' data-bs-toggle='modal' data-bs-target='#actualizarModal' data-id='".$fila['id']."'>Actualizar</button>";
@@ -182,8 +168,6 @@ $(document).ready(function() {
         
         // Utilizar la respuesta JSON directamente
         var cita = response;
-        console.log(cita);
-        console.log(cita.nombre);  // Asegúrate de que "nombre" esté en el JSON
 
         // Llenar los campos del formulario con la información de la cita
         $('#nombreCompleto').val(cita.nombre + ' ' + cita.apellido_paterno + ' ' + cita.apellido_materno);
