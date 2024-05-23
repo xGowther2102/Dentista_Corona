@@ -76,7 +76,7 @@ $correo = $_SESSION['correo'];
                     </a>
                 </li>
                 <li>
-                    <a href="../../pages/configuraciones/prueba.php">
+                    <a href="../../pages/configuraciones/config.php">
                         <ion-icon name="stats-chart-outline"></ion-icon>
                         <span>Configuracion  <br> de horarios</span>
                     </a>
