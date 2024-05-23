@@ -152,7 +152,6 @@
                         </div>
                         <br>
                         <br>
-                        <a href="./cambiar_pswd.php">¿Olvido su contraseña?</a>
                         <br>
                     </div>
                 </div>

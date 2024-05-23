@@ -72,6 +72,32 @@
         <?php require_once '../../assets/fecha/fecha_en_vivo.php'; ?>
     </div>
     <!-- Modal de Actualización -->
+    <style>
+        .modal-content{
+            color: #222;
+        }
+        .dark-mode select {
+            background-color: #303030;
+            color: #fff;
+        }
+        .dark-mode .modal-content {
+            background-color: #222;
+            color: #fff;
+        }
+
+        .dark-mode input.form-control {
+            border-color: #222;
+            border-radius: 5%;
+        }
+
+        .dark-mode textarea.form-control {
+            height: auto;
+            background-color: #303030;
+            color: #fff;
+            border-color: #222;
+            border-radius: 5%;
+        }
+    </style>
     <div class="modal fade" id="actualizarModal" tabindex="-1" aria-labelledby="actualizarModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg"> <!-- modal-lg para aumentar el tamaño del modal -->
             <div class="modal-content">
@@ -133,55 +159,57 @@
     <!-- Modal de CITAS -->
     <div class="modal fade" id="citasModal" tabindex="-1" aria-labelledby="citasModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg"> <!-- modal-lg para aumentar el tamaño del modal -->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="citasModalLabel">Agregar Nueva Cita</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="citasForm">
-                        <input type="hidden" id="idPacienteCita" name="id">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="nombreAct">Nombre:</label>
-                                    <input type="text" class="form-control" id="nombreCit" name="nombre" required>
+            <div class="modal-editar-cita">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="citasModalLabel">Agregar Nueva Cita</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="citasForm">
+                            <input type="hidden" id="idPacienteCita" name="id">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="nombreAct">Nombre:</label>
+                                        <input type="text" class="form-control" id="nombreCit" name="nombre" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="apellidoPaternoAct">Apellido paterno:</label>
+                                        <input type="text" class="form-control" id="apellidoPaternoCit" name="apellido_paterno" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="apellidoMaternoAct">Apellido materno:</label>
+                                        <input type="text" class="form-control" id="apellidoMaternoCit" name="apellido_materno" required>
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="apellidoPaternoAct">Apellido paterno:</label>
-                                    <input type="text" class="form-control" id="apellidoPaternoCit" name="apellido_paterno" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="apellidoMaternoAct">Apellido materno:</label>
-                                    <input type="text" class="form-control" id="apellidoMaternoCit" name="apellido_materno" required>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="correo">Correo electrónico:</label>
+                                        <input type="email" class="form-control" id="correoCit" name="email" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="fecha">Fecha de consulta:</label>
+                                        <input type="date" class="form-control" id="fechaCit" name="fecha" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="direccionAct">Hora:</label>
+                                        <select id="horaCit" name="hora" required></select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="sexoAct">Tratamiento:</label>
+                                        <input type="text" class="form-control" id="tratamientoCit" name="tratamiento" required>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                            <div class="form-group">
-                                    <label for="correo">Correo electrónico:</label>
-                                    <input type="email" class="form-control" id="correoCit" name="email" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="fecha">Fecha de consulta:</label>
-                                    <input type="date" class="form-control" id="fechaCit" name="fecha" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="direccionAct">Hora:</label>
-                                    <select id="horaCit" name="hora" required></select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="sexoAct">Tratamiento:</label>
-                                    <input type="text" class="form-control" id="tratamientoCit" name="tratamiento" required>
-                                </div>
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Agregar</button>
-                    </form>
+                            <button type="submit" class="btn btn-primary">Agregar</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-     <!-------MODAL DE ACTUALIZAR-------->
+    <!-------MODAL DE ACTUALIZAR-------->
     <script>
         $(document).ready(function() {
             $('.actualizar-btn').click(function() {
