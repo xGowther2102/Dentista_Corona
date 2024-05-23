@@ -19,9 +19,8 @@ $correo = $_SESSION['correo'];
     <link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <?php require '../../assets/MENU/index.php'; ?>
 </head>
-
+<?php require '../../assets/MENU/index.php'; ?>
 <main class="dark-mod">
     <h1 class="my-4" style="text-align: center; color: rgb(155, 155, 155); border: 1px black;">Lista de Citas</h1>
     <form id="formularioHorarios">
