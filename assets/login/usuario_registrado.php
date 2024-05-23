@@ -181,7 +181,7 @@
                             <div class="row">
                                 <br>
                                 <div class="col-sm-12">
-                                    <a href="../login/login.php" class="btn btn-secondary">Regresar al inico</a>
+                                    <a href="../../iniciar_sesion.php" class="btn btn-secondary">Regresar al inico</a>
                                 </div>
                             </div>
                         </form>

@@ -179,7 +179,7 @@ function confirmarCerrarSesion() {
 }
 
 function cerrarSesion() {
-    window.location.href = "../MENU/logout.php";
+    window.location.href = "../../assets/MENU/logout.php";
 }
 
 function editarContraseña() {
@@ -199,9 +199,6 @@ function editarContraseña() {
     });
 }
 
-function cerrarSesion() {
-    window.location.href = "../conexion/reset_pswd.php";
-}
 
 
 
