@@ -33,7 +33,7 @@
                             buttons: false
                         });
                         setTimeout(function(){
-                            window.location = './assets/panel_principal/index.php';
+                            window.location = './assets/inicio/panel.php';
                         }, 2000);
                     } else {
                         swal({

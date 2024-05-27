@@ -17,7 +17,7 @@ if(isset($_POST['id']) && !empty($_POST['id'])) {
     $servername = "localhost";
     $username = "root";
     $password = "";
-    $dbname = "Dentista_COrona";
+    $dbname = "Dentista_Corona";
 
     // Crear conexión
     $conn = new mysqli($servername, $username, $password, $dbname);

@@ -40,7 +40,7 @@ $correo = $_SESSION['correo'];
         <nav class="navegacion">
             <ul>
                 <li>
-                    <a href="../../pages/inicio/panel_principal.php">
+                    <a href="../../pages/inicio/index.php">
                         <ion-icon name="home-outline"></ion-icon>
                         <span>Panel Principal</span>
                     </a>
