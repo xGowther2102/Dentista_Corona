@@ -20,7 +20,7 @@ $correo = $_SESSION['correo'];
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
-<?php require '../../assets/MENU/index.php'; ?>
+
 <main class="dark-mod">
     <h1 class="my-4" style="text-align: center; color: rgb(155, 155, 155); border: 1px black;">Lista de Citas</h1>
     <form id="formularioHorarios">
@@ -78,7 +78,7 @@ $correo = $_SESSION['correo'];
             // Enviar los datos al servidor mediante AJAX
             $.ajax({
                 type: "POST",
-                url: "../../assets/config_horarios/config.php",
+                url: "../../assets/config_horarios/configuracion.php",
                 data: formData,
                 success: function(response) {
                     Swal.fire({

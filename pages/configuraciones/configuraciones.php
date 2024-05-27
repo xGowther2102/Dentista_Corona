@@ -7,6 +7,7 @@
     <link rel="icon" type="image/x-icon" href="../../images/icon.ico">
 </head>
 
+<?php require '../../assets/MENU/index.php' ; ?>
 <?php require '../../assets/config_horarios/horarios.php' ; ?>
 
 </html>
