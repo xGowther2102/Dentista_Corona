@@ -17,7 +17,7 @@ if(isset($_POST['id'])){
     $id = $_POST['id'];
     
     // Consulta SQL para eliminar al paciente
-    $sql = "DELETE FROM citas WHERE paciente_id  = $id";
+    $sql = "DELETE FROM citas WHERE pacientes_id  = $id";
     
     // Ejecutar la consulta
     if(mysqli_query($conn, $sql)){

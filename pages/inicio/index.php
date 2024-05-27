@@ -7,6 +7,6 @@
     <link rel="icon" type="image/x-icon" href="../../images/icon.ico">
 </head>
 
-<?php require '../../assets/panel_principal/index.php' ; ?>
+<?php require '../../assets/inicio/panel.php' ; ?>
 
 </html>

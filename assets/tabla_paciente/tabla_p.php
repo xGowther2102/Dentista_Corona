@@ -279,12 +279,7 @@
                         $('#nombreCit').val(response.nombre);
                         $('#apellidoPaternoCit').val(response.apellido_paterno);
                         $('#apellidoMaternoCit').val(response.apellido_materno);
-                        $('#telefonoCit').val(response.telefono);
                         $('#correoCit').val(response.email);
-                        $('#fechaCit').val(response.fecha_nacimiento);
-                        $('#direccionCit').val(response.direccion);
-                        $('#historialCit').val(response.historial_medico);
-                        $('#sexoCit').val(response.sexo);
                         $('#citasModal').modal('show');
                     }
                 });
@@ -317,22 +312,19 @@
             $('#citasForm').submit(function(event) {
                 event.preventDefault(); // Evita el envío del formulario por defecto
                 var formData = $(this).serialize(); // Serializa los datos del formulario
-
+                console.log(formData);
                 $.ajax({
                     url: '../../assets/tabla_paciente/scheduleAppointment.php',
                     type: 'POST',
                     data: formData,
-                    dataType: 'json',
                     success: function(data) {
-                        console.log(data); // Muestra la respuesta del servidor en la consola
-                        // Muestra un mensaje con SweetAlert
                         Swal.fire({
                             icon: 'success',
                             title: '¡Éxito!',
                             text: 'Cita registrada'
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                $('#actualizarModal').modal('hide');
+                                $('#citasModal').modal('hide');
                                 location.reload();
                             }
                         });
