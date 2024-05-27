@@ -37,32 +37,32 @@ $correo = $_SESSION['correo'];
                 <td><input type="time" name="hora_fin_lunes" step="1800" required></td>
             </tr>
             <tr>
-                <td><input type="text" name="Martes" id="Martes" value="Martes" disabled></td>
+                <td><input type="text" name="MARTES" id="Martes" value="Martes" disabled></td>
                 <td><input type="time" name="hora_inicio_Martes" step="1800" required></td>
                 <td><input type="time" name="hora_fin_Martes" step="1800" required></td>
             </tr>
             <tr>
-                <td><input type="text" name="Miercoles" id="Miercoles" value="Miercoles" disabled></td>
+                <td><input type="text" name="MIERCOLES" id="Miercoles" value="Miercoles" disabled></td>
                 <td><input type="time" name="hora_inicio_Miercoles" step="1800" required></td>
                 <td><input type="time" name="hora_fin_Miercoles" step="1800" required></td>
             </tr>
             <tr>
-                <td><input type="text" name="Jueves" id="Jueves" value="Jueves" disabled></td>
+                <td><input type="text" name="JUEVES" id="Jueves" value="Jueves" disabled></td>
                 <td><input type="time" name="hora_inicio_Jueves" step="1800" required></td>
                 <td><input type="time" name="hora_fin_Jueves" step="1800" required></td>
             </tr>
             <tr>
-                <td><input type="text" name="Viernes" id="Viernes" value="Viernes" disabled></td>
+                <td><input type="text" name="VIERNES" id="Viernes" value="Viernes" disabled></td>
                 <td><input type="time" name="hora_inicio_Viernes" step="1800" required></td>
                 <td><input type="time" name="hora_fin_Viernes" step="1800" required></td>
             </tr>
             <tr>
-                <td><input type="text" name="Sábado" id="Sabado" value="Sábado" disabled></td>
+                <td><input type="text" name="SABADO" id="Sabado" value="Sábado" disabled></td>
                 <td><input type="time" name="hora_inicio_Sabado" step="1800" required></td>
                 <td><input type="time" name="hora_fin_Sabado" step="1800" required></td>
             </tr>
             <tr>
-                <td><input type="text" name="Domingo" id="Domingo" value="Domingo" disabled></td>
+                <td><input type="text" name="DOMINGO" id="Domingo" value="Domingo" disabled></td>
                 <td><input type="time" name="hora_inicio_Domingo" step="1800" required></td>
                 <td><input type="time" name="hora_fin_Domingo" step="1800" required></td>
             </tr>
