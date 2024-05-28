@@ -29,26 +29,37 @@ if ($conn->connect_error) {
     <script src="../../js/eliminar_principal.js"></script>
 </head>
 <style>
-.dark-mode .estatus-pendiente {
-    color: orange; /* Color para el estado pendiente */
-}
+    @media (max-width: 768px) {
 
-.dark-mode .estatus-completado {
-    color: green; /* Color para el estado completado */
-}
+        /* Estilos para dispositivos móviles */
+        .table-responsive {
+            overflow-x: auto;
+        }
+    }
 
-.dark-mode .estatus-cancelado {
-    color: red; /* Color para el estado cancelado */
-}
+    .dark-mode .estatus-pendiente {
+        color: orange;
+        /* Color para el estado pendiente */
+    }
 
+    .dark-mode .estatus-completado {
+        color: green;
+        /* Color para el estado completado */
+    }
+
+    .dark-mode .estatus-cancelado {
+        color: red;
+        /* Color para el estado cancelado */
+    }
 </style>
+
 <body>
     <?php require '../../assets/MENU/index.php'; ?>
     <main class="dark-mod">
         <h1 class="my-4 text-center text-secondary">CITAS SIGUIENTES</h1>
         <br>
         <button id="activar-notificaciones" class="btn btn-primary mb-3">Activar Notificaciones</button>
-        <div class="container mt-5">
+        <div class="container mt-5 table-responsive">
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -75,14 +86,14 @@ if ($conn->connect_error) {
                         $pacientes = [];
                         while ($row = $result->fetch_assoc()) {
                             $pacientes[] = $row;
-                                switch ($row['estatus']) {
-                                    case 'PENDIENTE':
-                                        $claseEstado = 'estatus-pendiente';
-                                        break;
-                                    default:
-                                        $claseEstado = '';
-                                        break;
-                                }
+                            switch ($row['estatus']) {
+                                case 'PENDIENTE':
+                                    $claseEstado = 'estatus-pendiente';
+                                    break;
+                                default:
+                                    $claseEstado = '';
+                                    break;
+                            }
                             echo "<tr>";
                             echo "<td>{$row['id']}</td>";
                             echo "<td>{$row['nombre']}</td>";
@@ -94,8 +105,8 @@ if ($conn->connect_error) {
                             echo "<td>{$row['fecha']}</td>";
                             echo "<td>{$row['hora']}</td>";
                             echo "<td class='d-flex justify-content-between'>";
-                            echo "<button class='btn btn-danger btn-sm eliminar-btn' data-id='".$row['id']."'>Eliminar</button>";
-                            echo "<button class='btn btn-primary btn-sm actualizar-btn' data-bs-toggle='modal' data-bs-target='#actualizarModal' data-id='".$row['id']."'>Actualizar</button>";
+                            echo "<button class='btn btn-danger btn-sm eliminar-btn' data-id='" . $row['id'] . "'>Eliminar</button>";
+                            echo "<button class='btn btn-primary btn-sm actualizar-btn' data-bs-toggle='modal' data-bs-target='#actualizarModal' data-id='" . $row['id'] . "'>Actualizar</button>";
                             echo "</td>";
                             echo "</tr>";
                         }
@@ -280,55 +291,57 @@ if ($conn->connect_error) {
             });
         });
     </script>
-<script>
-    $(document).ready(function() {
-        $('.eliminar-btn').click(function() {
-            var idCita = $(this).data('id');
-            
-            Swal.fire({
-                title: '¿Estás seguro?',
-                text: "¡No podrás revertir esto!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Sí, eliminar',
-                cancelButtonText: 'Cancelar'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        type: 'POST',
-                        url: '../../assets/inicio/eliminar_cita.php', // URL de tu script PHP para eliminar
-                        data: { id: idCita },
-                        success: function(response) {
-                            Swal.fire(
-                                'Eliminado',
-                                'La cita ha sido eliminada.',
-                                'success'
-                            ).then(function() {
-                                location.reload();
-                            });
-                        },
-                        error: function(xhr, status, error) {
-                            Swal.fire(
-                                'Error',
-                                'Se produjo un error al eliminar la cita.',
-                                'error'
-                            );
-                            console.error(xhr.responseText);
-                        }
-                    });
-                }
+    <script>
+        $(document).ready(function() {
+            $('.eliminar-btn').click(function() {
+                var idCita = $(this).data('id');
+
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: "¡No podrás revertir esto!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Sí, eliminar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: 'POST',
+                            url: '../../assets/inicio/eliminar_cita.php', // URL de tu script PHP para eliminar
+                            data: {
+                                id: idCita
+                            },
+                            success: function(response) {
+                                Swal.fire(
+                                    'Eliminado',
+                                    'La cita ha sido eliminada.',
+                                    'success'
+                                ).then(function() {
+                                    location.reload();
+                                });
+                            },
+                            error: function(xhr, status, error) {
+                                Swal.fire(
+                                    'Error',
+                                    'Se produjo un error al eliminar la cita.',
+                                    'error'
+                                );
+                                console.error(xhr.responseText);
+                            }
+                        });
+                    }
+                });
             });
         });
-    });
-</script>
-<script>
+    </script>
+    <script>
         //     $(document).ready(function() {
         //     $('.table').DataTable();
         // });
 
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const pacientes = <?php echo json_encode($pacientes); ?>;
             const citasNotificadas = new Set();
 
@@ -353,32 +366,33 @@ if ($conn->connect_error) {
                     citasNotificadas.add(paciente.id);
                 });
             }
+
             function mostrarModalOpciones(paciente) {
-            // Verifica si el estado de la cita no es completado
-            if (paciente.estatus !== 'COMPLETADO' && paciente.estatus !== 'CANCELADO') {
-                Swal.fire({
-                    title: 'Cita',
-                    text: `Seleccione una opción para la cita de ${paciente.nombre} ${paciente.apellido_paterno}`,
-                    icon: 'question',
-                    showCancelButton: true,
-                    confirmButtonText: 'Completado',
-                    showDenyButton: true,
-                    denyButtonText: `Propuesto`,
-                    cancelButtonText: 'Cancelar Cita'
-                }).then((result) => {
-                    citasNotificadas.add(paciente.id);
-                    if (result.isConfirmed) {
-                        actualizarEstatus(paciente.id, 'COMPLETADO');
-                    } else if (result.isDenied) {
-                        proponerNuevaFechaHora(paciente);
-                    } else if (result.dismiss === Swal.DismissReason.cancel) {
-                        actualizarEstatus(paciente.id, 'CANCELADO');
-                    }
-                });
-            } else {
-                citasNotificadas.add(paciente.id); // Agregar la cita a citasNotificadas
+                // Verifica si el estado de la cita no es completado
+                if (paciente.estatus !== 'COMPLETADO' && paciente.estatus !== 'CANCELADO') {
+                    Swal.fire({
+                        title: 'Cita',
+                        text: `Seleccione una opción para la cita de ${paciente.nombre} ${paciente.apellido_paterno}`,
+                        icon: 'question',
+                        showCancelButton: true,
+                        confirmButtonText: 'Completado',
+                        showDenyButton: true,
+                        denyButtonText: `Propuesto`,
+                        cancelButtonText: 'Cancelar Cita'
+                    }).then((result) => {
+                        citasNotificadas.add(paciente.id);
+                        if (result.isConfirmed) {
+                            actualizarEstatus(paciente.id, 'COMPLETADO');
+                        } else if (result.isDenied) {
+                            proponerNuevaFechaHora(paciente);
+                        } else if (result.dismiss === Swal.DismissReason.cancel) {
+                            actualizarEstatus(paciente.id, 'CANCELADO');
+                        }
+                    });
+                } else {
+                    citasNotificadas.add(paciente.id); // Agregar la cita a citasNotificadas
+                }
             }
-        }
 
             function verificarCitas() {
                 const ahora = new Date();
@@ -398,7 +412,7 @@ if ($conn->connect_error) {
 
             setInterval(verificarCitas, 60000);
         });
-</script>
+    </script>
 </body>
 
 </html>

@@ -52,37 +52,37 @@ $query = "INSERT INTO horarios (usuario_id, dia_semana, hora_inicio, hora_fin) V
 $stmt = $mysqli->prepare($query);
 
 // Lunes
-$dia_semana = 'Lunes';
+$dia_semana = 'LUNES';
 $stmt->bind_param("isss", $usuario_id, $dia_semana, $hora_inicio_lunes, $hora_fin_lunes);
 $stmt->execute();
 
 // Martes
-$dia_semana = 'Martes';
+$dia_semana = 'MARTES';
 $stmt->bind_param("isss", $usuario_id, $dia_semana, $hora_inicio_Martes, $hora_fin_Martes);
 $stmt->execute();
 
 // Miercoles
-$dia_semana = 'Miercoles';
+$dia_semana = 'MIERCOLES';
 $stmt->bind_param("isss", $usuario_id, $dia_semana, $hora_inicio_Miercoles, $hora_fin_Miercoles);
 $stmt->execute();
 
 // Jueves
-$dia_semana = 'Jueves';
+$dia_semana = 'JUEVES';
 $stmt->bind_param("isss", $usuario_id, $dia_semana, $hora_inicio_Jueves, $hora_fin_Jueves);
 $stmt->execute();
 
 // Viernes
-$dia_semana = 'Viernes';
+$dia_semana = 'VIERNES';
 $stmt->bind_param("isss", $usuario_id, $dia_semana, $hora_inicio_Viernes, $hora_fin_Viernes);
 $stmt->execute();
 
 // Sabado
-$dia_semana = 'Sabado';
+$dia_semana = 'SABADO';
 $stmt->bind_param("isss", $usuario_id, $dia_semana, $hora_inicio_Sabado, $hora_fin_Sabado);
 $stmt->execute();
 
 // Domingo
-$dia_semana = 'Domingo';
+$dia_semana = 'DOMINGO';
 $stmt->bind_param("isss", $usuario_id, $dia_semana, $hora_inicio_Domingo, $hora_fin_Domingo);
 $stmt->execute();
 

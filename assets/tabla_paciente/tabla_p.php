@@ -10,7 +10,7 @@
     <!-- DataTables CSS -->
     <link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../../css/tabla_citas.css">
-   
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -65,21 +65,38 @@
             </table>
         </div>
         <br>
-        <div>
-            <button id="exportar-btn" class="btn btn-success" style="margin-bottom: 10px;">Exportar a Excel</button>
+        <div style="display: flex; justify-content: space-between;">
+            <div style="margin-right: 10px;">
+                <a href="../../assets/pacientes/nuevo_paciente.php">
+                    <button id="historial-btn" class="btn btn-outline-warning" style="margin-bottom: 10px;">Agregar Paciente</button>
+                </a>
+            </div>
+            <div style="margin-right: 10px;">
+                <a href="#">
+                    <button id="historial-btn" class="btn btn-outline-info" style="margin-bottom: 10px;">Historial de Citas</button>
+                </a>
+            </div>
+            <div style="margin-left: auto;">
+                    <button id="exportar-btn" class="btn btn-success" style="margin-bottom: 10px;">Exportar a Excel</button>
+            </div>
         </div>
+
+
+
         <br>
         <?php require_once '../../assets/fecha/fecha_en_vivo.php'; ?>
     </div>
     <!-- Modal de Actualización -->
     <style>
-        .modal-content{
+        .modal-content {
             color: #222;
         }
+
         .dark-mode select {
             background-color: #303030;
             color: #fff;
         }
+
         .dark-mode .modal-content {
             background-color: #222;
             color: #fff;
