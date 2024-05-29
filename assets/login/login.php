@@ -27,15 +27,29 @@
                 data: {username: username, password: password, username_id: username_id},
                 success: function(response){
                     if(response == 'success'){
-                        swal({
-                            title: "¡Éxito!",
-                            text: "Inicio de sesión exitoso",
-                            icon: "success",
-                            buttons: false
+                        // Verificar si existen horarios guardados
+                        $.ajax({
+                            type: "GET",
+                            url: "assets/login/verifica_horarios.php",
+                            success: function(response) { 
+                                if (response == 'success') {
+                                    console.log("Respuesta del servidor: ", response);
+                                    window.location = './pages/inicio/index.php';
+                                } else {
+                                    console.error("Error en la solicitud AJAX: ", error);
+                                    window.location = './pages/configuraciones/configuraciones.php';
+                                }
+                            },
+                            error: function(xhr, status, error) {
+                                // Si hay algún error en la solicitud, mostrar mensaje de error
+                                swal({
+                                    title: "¡ERROR!",
+                                    text: "Ocurrió un error al verificar los horarios.",
+                                    icon: "error",
+                                    buttons: false
+                                });
+                            }
                         });
-                        setTimeout(function(){
-                            window.location = './pages/inicio/index.php';
-                        }, 2000);
                     } else {
                         swal({
                             title: "¡ERROR!",
@@ -56,6 +70,7 @@
         });
     });
 </script>
+
 
 
 </head>

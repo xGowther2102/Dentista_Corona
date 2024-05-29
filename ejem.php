@@ -31,6 +31,13 @@ echo $usuario_id;
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Incluir jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Incluir Popper.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <!-- Incluir Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </head>
 <body>
@@ -87,6 +94,26 @@ echo $usuario_id;
             </tbody>
         </table>
     </div>
+
+    <div class="modal fade" id="modalCita" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Actualizar Estado de la Cita</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Seleccione una opción para actualizar el estado de la cita.</p>
+                    <button class="btn btn-primary" onclick="actualizarEstadoCita(citaId, 'COMPLETADO')">Completado</button>
+                    <button class="btn btn-secondary" onclick="mostrarModalPropuesto(citaId)">Propuesto</button>
+                    <button class="btn btn-danger" onclick="actualizarEstadoCita(citaId, 'CANCELADO')">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- Modales de SweetAlert2 -->
     <script>
@@ -188,64 +215,182 @@ echo $usuario_id;
     }
     </script>
 
+<script>
+     $(document).ready(function() {
+        // Obtener el ID del usuario desde PHP
+        var usuario_id = <?php echo $usuario_id; ?>;
 
-    <script>
-        function obtenerHoraActual() {
-    var ahora = new Date();
-    var horas = ahora.getHours();
-    var minutos = ahora.getMinutes();
-    var ampm = horas >= 12 ? 'PM' : 'AM';
-    
-    // Convertir las horas al formato de 12 horas
-    horas = horas % 12;
-    horas = horas ? horas : 12; // La hora 0 debe ser 12
+        // Función para obtener las citas del usuario activo
+        function obtenerCitasUsuarioActivo() {
+            // Realizar la solicitud AJAX
+            $.ajax({
+                url: 'obtener_cita.php', // Ruta a tu script PHP que maneja la solicitud
+                type: 'POST',
+                dataType: 'json',
+                data: { usuario_id: usuario_id },
+                success: function(response) {
+                    // Manejar la respuesta del servidor
+                    if (response.success) {
+                        // Aquí puedes trabajar con los datos de las citas recibidas
+                        var citas = response.citas;
+                        citas.forEach(function(cita) {
+                            // Obtener la fecha y hora actual
+                            var fechaActual = new Date();
 
-    // Añadir un cero delante de los minutos si es necesario
-    minutos = minutos < 10 ? '0' + minutos : minutos;
+                            // Convertir la hora de la cita a formato de 24 horas
+                            var horaCita24 = convertirHora(cita.hora);
+                            console.log('Hora de la Cita:', horaCita24);
 
-    var horaActual = horas + ':' + minutos + ' ' + ampm;
-    return horaActual;
-}
+                            // Calcular la hora final sumando la duración
+                            var horaFinal = calcularHoraFinal(horaCita24, cita.duracion);
+                            console.log('Hora Final:', horaFinal);
 
-console.log(obtenerHoraActual());
+                            // Convertir horas de cita y hora final a objetos Date
+                            var horaInicio = convertirAFecha(cita.fecha, horaCita24);
+                            var horaFin = convertirAFecha(cita.fecha, horaFinal);
 
-function obtenerFechaActual() {
-    var ahora = new Date();
-    var año = ahora.getFullYear();
-    var mes = ahora.getMonth() + 1; // Los meses comienzan desde 0
-    var dia = ahora.getDate();
+                            // Calcular 5 minutos antes de la hora de inicio y 5 minutos después de la hora final
+                            var cincoMinAntesInicio = new Date(horaInicio.getTime() - 5 * 60000);
+                            console.log(cincoMinAntesInicio);
+                            var cincoMinDespuesFin = new Date(horaFin.getTime() + 5 * 60000);
+                            console.log(cincoMinDespuesFin);
+                            // Verificar si la hora actual está dentro de los intervalos
+                            // Verificar si la hora actual está dentro de los intervalos
+                            if (fechaActual >= cincoMinAntesInicio && fechaActual < horaInicio) {
+                                // Mostrar mensaje de aproximación de cita
+                                alert('La cita se aproxima en los próximos 5 minutos.');
+                            } else if (fechaActual >= horaFin && fechaActual <= cincoMinDespuesFin) {
+                                // Mostrar el modal 5 minutos después de la hora final
+                                setTimeout(function() {
+                                    mostrarModal(cita.id, 'La cita ha finalizado.');
+                                }, 5 * 60000); // Esperar 5 minutos después de la hora final
+                            }
+                        });
+                    } else {
+                        console.error('Error al obtener citas:', response.error);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error en la solicitud AJAX:', error);
+                }
+            });
+        }
 
-    // Formatear la fecha como "YYYY-MM-DD"
-    var fechaActual = año + '-' + (mes < 10 ? '0' + mes : mes) + '-' + (dia < 10 ? '0' + dia : dia);
-    return fechaActual;
-}
+        // Llamar a la función para obtener las citas del usuario activo
+        obtenerCitasUsuarioActivo();
+    });
 
-console.log(obtenerFechaActual());
+    function obtenerFechaActual() {
+        var ahora = new Date();
+        var año = ahora.getFullYear();
+        var mes = ahora.getMonth() + 1; // Los meses comienzan desde 0
+        var dia = ahora.getDate();
 
+        // Formatear la fecha como "YYYY-MM-DD"
+        var fechaActual = año + '-' + (mes < 10 ? '0' + mes : mes) + '-' + (dia < 10 ? '0' + dia : dia);
+        return fechaActual;
+    }
 
-$(document).ready(function() {
-    // Obtener el ID del usuario desde PHP
-    var usuario_id = <?php echo $usuario_id; ?>;
+    function convertirHora(hora24) {
+        var partesHora = hora24.split(':');
+        var horas = parseInt(partesHora[0]);
+        var minutos = partesHora[1];
+        return horas + ':' + minutos;
+    }
 
-    // Función para obtener las citas del usuario activo
-    function obtenerCitasUsuarioActivo() {
-        // Realizar la solicitud AJAX
+    function calcularHoraFinal(horaInicio, duracion) {
+        var partesInicio = horaInicio.split(':');
+        var horasInicio = parseInt(partesInicio[0]);
+        var minutosInicio = parseInt(partesInicio[1]);
+
+        var partesDuracion = duracion.split(':');
+        var horasDuracion = parseInt(partesDuracion[0]);
+        var minutosDuracion = parseInt(partesDuracion[1]);
+
+        var horasFinal = horasInicio + horasDuracion;
+        var minutosFinal = minutosInicio + minutosDuracion;
+
+        if (minutosFinal >= 60) {
+            horasFinal += 1;
+            minutosFinal -= 60;
+        }
+
+        return (horasFinal < 10 ? '0' + horasFinal : horasFinal) + ':' + (minutosFinal < 10 ? '0' + minutosFinal : minutosFinal);
+    }
+
+    function convertirAFecha(fecha, hora) {
+        var partesFecha = fecha.split('-');
+        var partesHora = hora.split(':');
+        var anio = parseInt(partesFecha[0]);
+        var mes = parseInt(partesFecha[1]) - 1; // Los meses en JavaScript van de 0 a 11
+        var dia = parseInt(partesFecha[2]);
+        var horas = parseInt(partesHora[0]);
+        var minutos = parseInt(partesHora[1]);
+        return new Date(anio, mes, dia, horas, minutos);
+    }
+
+    function mostrarModal(citaId, mensaje) {
+        // Crear el modal dinámicamente
+        var modalHtml = `
+            <div id="modalCita" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Actualizar Estado de la Cita</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>${mensaje}</p>
+                            <button class="btn btn-primary" onclick="actualizarEstadoCita(${citaId}, 'COMPLETADO')">Completado</button>
+                            <button class="btn btn-secondary" onclick="mostrarModalPropuesto(${citaId})">Propuesto</button>
+                            <button class="btn btn-danger" onclick="actualizarEstadoCita(${citaId}, 'CANCELADO')">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        $('body').append(modalHtml);
+        $('#modalCita').modal('show');
+    }
+
+    function mostrarModalPropuesto(citaId) {
+        // Crear el modal para actualizar la hora y fecha
+        var modalHtml = `
+            <div id="modalPropuesto" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Proponer Nueva Hora y Fecha</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="date" id="nuevaFecha" class="form-control">
+                            <input type="time" id="nuevaHora" class="form-control mt-2">
+                            <button class="btn btn-primary mt-2" onclick="actualizarEstadoPropuesto(${citaId})">Actualizar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        $('body').append(modalHtml);
+        $('#modalPropuesto').modal('show');
+    }
+
+    function actualizarEstadoCita(citaId, nuevoEstado) {
         $.ajax({
-            url: 'obtener_cita.php', // Ruta a tu script PHP que maneja la solicitud
+            url: 'actualizar_estado.php',
             type: 'POST',
-            dataType: 'json',
-            data: { usuario_id: usuario_id },
+            data: { id: citaId, estado: nuevoEstado },
             success: function(response) {
-                // Manejar la respuesta del servidor
                 if (response.success) {
-                    // Aquí puedes trabajar con los datos de las citas recibidas
-                    var citas = response.citas;
-                    citas.forEach(function(cita) {
-                        // Acceder a la hora de cada cita y hacer lo que necesites con ella
-                        console.log('Hora de la cita:', cita.hora);
-                    });
+                    alert('El estado de la cita ha sido actualizado.');
+                    $('#modalCita').modal('hide');
                 } else {
-                    console.error('Error al obtener citas:', response.error);
+                    alert('Error al actualizar el estado de la cita.');
                 }
             },
             error: function(xhr, status, error) {
@@ -254,9 +399,29 @@ $(document).ready(function() {
         });
     }
 
-    // Llamar a la función para obtener las citas del usuario activo
-    obtenerCitasUsuarioActivo();
-});
+    function actualizarEstadoPropuesto(citaId) {
+        var nuevaFecha = $('#nuevaFecha').val();
+        var nuevaHora = $('#nuevaHora').val();
+
+        $.ajax({
+            url: 'actualizar_estatus.php',
+            type: 'POST',
+            data: { id: citaId, estado: 'PENDIENTE', fecha: nuevaFecha, hora: nuevaHora },
+            success: function(response) {
+                if (response.success) {
+                    alert('El estado de la cita ha sido actualizado.');
+                    $('#modalPropuesto').modal('hide');
+                } else {
+                    alert('Error al actualizar el estado de la cita.');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error en la solicitud AJAX:', error);
+            }
+        });
+    }
     </script>
+
+
 </body>
 </html>
