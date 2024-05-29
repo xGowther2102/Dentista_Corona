@@ -54,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["correo"])) {
                 $mail->CharSet = 'UTF-8';
                 $mail->Username = $config['email'];
                 $mail->Password = $config['password'];
-                $mail->setFrom('consultorio.corona@outlook.com', 'Consultorio Dental CORONA');
+                $mail->setFrom('consultorio.corona@outlook.com', 'Consultorio CORONA');
                 $mail->addAddress($correo);
                 $mail->isHTML(true); // Indica que el correo tendrá formato HTML
                 $mail->Subject = 'Restablecer cuenta';
@@ -117,7 +117,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["correo"])) {
             <img src="http://edwher57.freehostia.com/img/email-reset.png" height="80px" width="80px" alt="Cambiar contraseña">
                 <p>Hola, has solicitado restablecer tu contraseña en Consultorio Dental CORONA.</p>
                 <p>Para hacerlo, visita este enlace:</p>
-                <p><a class="button" href="http://192.168.1.86/dentista_corona/assets/forgotpassword/cambiarPassword.php?correo=' . $correo . '&token=' . $token . '">Restablecer Contraseña</a></p>
+                <p><a class="button" href="http://192.168.2.151/dentista_corona/c_contrasena.php?correo=' . $correo . '&token=' . $token . '">Restablecer Contraseña</a></p>
             </div>
             <div class="footer">
                 <p>Si no solicitaste este cambio, por favor ignora este correo.</p>

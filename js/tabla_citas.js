@@ -30,18 +30,35 @@ $(document).ready(function () {
       '<"row"<"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>', // Ajustar diseño de la tabla
   });
 
-  // $("#dataTable tbody").on("click", "button.actualizar-btn", function () {
-  //   var data = table.row($(this).parents("tr")).data();
-  //   // Aquí puedes implementar la lógica para actualizar la fila
-  //   console.log("Actualizar fila:", data);
-  // });
-
-  // $("#dataTable tbody").on("click", "button.eliminar-btn", function () {
-  //   var row = table.row($(this).parents("tr"));
-  //   row.remove().draw();
-  // });
-
   $("#exportar-btn").click(function () {
+    var data = table.rows().data().toArray();
+    var excelData = data.map(function (row) {
+      return [
+        row[0], // ID
+        row[1], // Nombre Completo
+        row[2], // N. Telefono
+        row[3], // Edad
+        row[4], // Sexo
+        row[5], // Historial M.
+      ];
+    });
+
+    var excelContent = [
+      ["ID", "N. Completo", "Num. Telefono", "Edad", "Sexo", "Historial M."],
+      ...excelData,
+    ];
+
+    var csvContent = arrayToCSV(excelContent); // Convertir a CSV
+
+    // Crear blob con encoding UTF-8 para soporte Unicode
+    var blob = new Blob([new Uint8Array([0xef, 0xbb, 0xbf]), csvContent], {
+      type: "text/csv;charset=utf-8",
+    });
+
+    saveAs(blob, "datos_pacientes.csv");
+  });
+
+  $("#exportar-citas-btn").click(function () {
     var data = table.rows().data().toArray();
     var excelData = data.map(function (row) {
       return [
@@ -63,7 +80,7 @@ $(document).ready(function () {
       type: "text/csv;charset=utf-8",
     });
 
-    saveAs(blob, "datos_pacientes.csv");
+    saveAs(blob, "datos_citas.csv");
   });
 
   // Función para convertir array a CSV

@@ -1,16 +1,15 @@
 <?php
 session_start();
-if(!isset($_SESSION['username']) || !isset($_SESSION['correo'])){ 
+if (!isset($_SESSION['username']) || !isset($_SESSION['correo'])) {
     // Si el usuario no ha iniciado sesión, puedes redirigirlo a la página de inicio de sesión
     header("Location: ../../iniciar_sesion.php");
     exit();
 }
 
 // Obtener los datos del usuario de la sesión
-$usuario = $_SESSION['username']; 
+$usuario = $_SESSION['username'];
 $correo = $_SESSION['correo'];
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -21,6 +20,12 @@ $correo = $_SESSION['correo'];
     <title>Sidebar</title>
     <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
     <link rel="stylesheet" href="../../assets/MENU/style.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+
+    <link rel="stylesheet" href="@sweetalert2/themes/dark/dark.css">
+    <script src="sweetalert2/dist/sweetalert2.min.js"></script>
 </head>
 
 <body>
@@ -32,7 +37,7 @@ $correo = $_SESSION['correo'];
     <div class="barra-lateral">
         <div>
             <div class="nombre-pagina">
-                    <img src="../../images/home.ico" alt="CORONA" width="55px" height="55px">
+                <img src="../../images/home.ico" alt="CORONA" width="55px" height="55px">
                 <span>CORONA &copy;</span>
             </div>
         </div>
@@ -51,7 +56,7 @@ $correo = $_SESSION['correo'];
                         <span>Citas</span>
                     </a>
                 </li>
-                <li>
+                <li hidden>
                     <a href="../../pages/citas/agregar_cita.php">
                         <ion-icon name="add-outline"></ion-icon>
                         <span>Nueva cita</span>
@@ -63,7 +68,7 @@ $correo = $_SESSION['correo'];
                         <span>Pacientes</span>
                     </a>
                 </li>
-                <li>
+                <li hidden>
                     <a href="../../pages/pacientes/nuevo_paciente.php">
                         <ion-icon name="person-add-outline"></ion-icon>
                         <span>N. Paciente</span>
@@ -77,13 +82,13 @@ $correo = $_SESSION['correo'];
                 </li>
                 <li>
                     <a href="../../pages/configuraciones/configuraciones.php">
-                        <ion-icon name="stats-chart-outline"></ion-icon>
-                        <span>Configuracion  <br> de horarios</span>
+                        <ion-icon name="time-outline"></ion-icon>
+                        <span>Configuracion <br> de horarios</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <ion-icon name="reader-outline"></ion-icon>
+                        <ion-icon name="information-circle-outline"></ion-icon>
                         <span style="font-size: 1em;">Informacion de la
                             <br>app web</span>
                     </a>
@@ -108,102 +113,91 @@ $correo = $_SESSION['correo'];
                 </div>
             </div>
 
-            
             <div class="usuario">
-    <img src="../../assets/MENU/Jhampier.jpg" alt="">
-    <div class="info-usuario">
-        <div class="nombre-email">
-            <span class="nombre"><?php echo $usuario; ?></span>
-            <span class="email"><?php echo $correo; ?></span>
-        </div>
-        <div class="opciones-usuario">
-            <ion-icon name="ellipsis-vertical-outline" onclick="mostrarOpciones()"></ion-icon>
-            <div id="opciones" class="opciones">
-                <button onclick="editarContraseña()">Editar Contraseña</button>
-                <button onclick="editarImagen()">Editar Imagen</button>
-                <button onclick="confirmarCerrarSesion()">Cerrar Sesión</button>
+                <img src="../../assets/MENU/Jhampier.jpg" alt="">
+                <div class="info-usuario">
+                    <div class="nombre-email">
+                        <span class="nombre"><?php echo $usuario; ?></span>
+                        <span class="email"><?php echo $correo; ?></span>
+                    </div>
+                    <div class="opciones-usuario">
+                        <ion-icon name="ellipsis-vertical-outline" onclick="mostrarOpciones()"></ion-icon>
+                        <div id="opciones" class="opciones">
+                            <button onclick="editarContrasena()">Editar Contraseña</button>
+                            <button onclick="editarImagen()">Editar Imagen</button>
+                            <button onclick="confirmarCerrarSesion()">Cerrar Sesión</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-
-
-
-
-
-
-
-
-        </div>
-        </div>
-    </div>
-    <!--
-<main class="dark-mod">
-<?php
-/*
-    require_once 'grafica.php';
-    */
-?>
-</main>
--->
-<script>
-
-function mostrarOpciones() {
-    var opciones = document.querySelector('.opciones');
-    opciones.style.display = opciones.style.display === 'block' ? 'none' : 'block';
-}
-
-window.onclick = function(event) {
-    var opciones = document.querySelector('.opciones');
-    var icono = document.querySelector('.opciones-usuario ion-icon');
-    if (event.target != opciones && event.target != icono) {
-        opciones.style.display = 'none';
-    }
-};
-function confirmarCerrarSesion() {
-    Swal.fire({
-        title: '¿Estás seguro?',
-        text: '¿Deseas cerrar sesión?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí, cerrar sesión',
-        cancelButtonText: 'Cancelar'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            cerrarSesion();
+    <script>
+        function mostrarOpciones() {
+            var opciones = document.querySelector('.opciones');
+            opciones.style.display = opciones.style.display === 'block' ? 'none' : 'block';
         }
-    });
-}
 
-function cerrarSesion() {
-    window.location.href = "../../assets/MENU/logout.php";
-}
+        window.onclick = function(event) {
+            var opciones = document.querySelector('.opciones');
+            var icono = document.querySelector('.opciones-usuario ion-icon');
+            if (event.target != opciones && event.target != icono) {
+                opciones.style.display = 'none';
+            }
+        };
 
-function editarContraseña() {
-    Swal.fire({
-        title: '¿Estás seguro?',
-        text: '¿Deseas cambiar contraseña?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí, cerrar sesión',
-        cancelButtonText: 'Cancelar'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            cerrarSesion();
+        function confirmarCerrarSesion() {
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: '¿Deseas cerrar sesión?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, cerrar sesión',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    cerrarSesion();
+                }
+            });
         }
-    });
-}
 
+        function cerrarSesion() {
+            window.location.href = "../../assets/MENU/logout.php";
+        }
 
+        function editarContrasena() {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "../../assets/MENU/logout.php", true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    window.location.href = "../../cambiar_pswd.php";
+                }
+            };
+            xhr.send();
+        }
 
+        function editarImagen() {
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: '¿Deseas cambiar la imagen?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, cambiar imagen',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redirige a la página de edición de imagen (puedes cambiar la URL según sea necesario)
+                    window.location.href = "../../assets/MENU/edit_image.php";
+                }
+            });
+        }
+    </script>
 
-
-</script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script src="../../assets/MENU/script.js"></script>

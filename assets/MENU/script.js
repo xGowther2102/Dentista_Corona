@@ -2,8 +2,14 @@ const palanca = document.querySelector(".switch");
 const circulo = document.querySelector(".circulo");
 const body = document.body;
 
-// Verificar si el modo oscuro estaba activado anteriormente
-const darkModeEnabled = localStorage.getItem("darkModeEnabled");
+// Verificar si el modo oscuro estaba activado anteriormente o establecerlo por defecto
+let darkModeEnabled = localStorage.getItem("darkModeEnabled");
+
+// Si darkModeEnabled es null, significa que no hay un valor guardado. Lo establecemos en "true" para activar el modo oscuro por defecto.
+if (darkModeEnabled === null) {
+  darkModeEnabled = "true";
+  localStorage.setItem("darkModeEnabled", "true");
+}
 
 if (darkModeEnabled === "true") {
   body.classList.add("dark-mode");

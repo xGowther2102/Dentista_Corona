@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $conn->query($delete_sql);
 
                     // Redireccionar a otra página después de 2 segundos
-                    header('Refresh: 2; URL=../../assets/forgotpassword/confirmar_contra.php');
+                    header('Refresh: 2; URL=./assets/forgotpassword/confirmar_contra.php');
                     exit(); // Asegura que el script se detenga después de la redirección
                 } else {
                     echo "Error al actualizar la contraseña.";

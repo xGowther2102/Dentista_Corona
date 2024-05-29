@@ -45,7 +45,7 @@
         </div>
         <br>
         <div>
-            <button id="exportar-btn" class="btn btn-success" style="margin-bottom: 10px;">Exportar a Excel</button>
+            <button id="exportar-citas-btn" class="btn btn-success" style="margin-bottom: 10px;">Exportar a Excel</button>
         </div>
         <br>
         <?php require_once '../../assets/fecha/fecha_en_vivo.php'; ?>
