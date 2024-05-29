@@ -22,6 +22,7 @@
                     <th>Tratamiento</th>
                     <th>Fecha</th>
                     <th>Hora</th>
+                    <th>Acciones</th> <!-- Nueva columna para acciones -->
                 </tr>
             </thead>
             <tbody>
@@ -45,10 +46,14 @@
                         echo "<td>{$row['tratamiento']}</td>";
                         echo "<td>{$row['fecha']}</td>";
                         echo "<td>{$row['hora']}</td>";
+                        echo "<td>"; // Abre la columna de acciones
+                        echo "<button class='btn btn-primary btn-sm' onclick='mostrarModalActualizar({$row['id']})'>Actualizar</button>";
+                        echo "<button class='btn btn-danger btn-sm ms-2' onclick='mostrarModalEliminar({$row['id']})'>Eliminar</button>";
+                        echo "</td>"; // Cierra la columna de acciones
                         echo "</tr>";
                     }
                 } else {
-                    echo "<tr><td colspan='9'>No hay citas programadas</td></tr>";
+                    echo "<tr><td colspan='10'>No hay citas programadas</td></tr>";
                 }
                 $conn->close();
                 ?>
@@ -56,139 +61,107 @@
         </table>
     </div>
 
-    <!-- Prueba SweetAlert2 -->
+    <!-- Modales de SweetAlert2 -->
     <script>
-    document.addEventListener('DOMContentLoaded', (event) => {
-        Swal.fire({
-            title: 'Prueba',
-            text: 'SweetAlert2 está funcionando correctamente.',
-            icon: 'success',
-            confirmButtonText: 'OK'
-        });
-    });
-    </script>
+    function mostrarModalActualizar(id) {
+        // Llama a la API para obtener los datos de la cita
+        fetch(`obtener_cita.php?id=${id}`)
+            .then(response => response.json())
+            .then(data => {
+                // Muestra los datos en el modal
+                Swal.fire({
+                    title: 'Actualizar Cita',
+                    html: `
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <input type="text" id="nombre" class="swal2-input" placeholder="Nombre" value="${data.nombre}">
+                                    <input type="text" id="apellido_paterno" class="swal2-input" placeholder="Apellido Paterno" value="${data.apellido_paterno}">
+                                    <input type="text" id="apellido_materno" class="swal2-input" placeholder="Apellido Materno" value="${data.apellido_materno}">
+                                    <input type="text" id="antecedentes" class="swal2-input" placeholder="Antecedentes" value="${data.antecedentes}">
+                                </div>
+                                <div class="col">
+                                    <input type="text" id="estatus" class="swal2-input" placeholder="Estatus" value="${data.estatus}">
+                                    <input type="text" id="tratamiento" class="swal2-input" placeholder="Tratamiento" value="${data.tratamiento}">
+                                    <input type="date" id="fecha" class="swal2-input" value="${data.fecha}">
+                                    <input type="time" id="hora" class="swal2-input" value="${data.hora}">
+                                </div>
+                            </div>
+                        </div>
+                    `,
+                    showCancelButton: true,
+                    confirmButtonText: 'Guardar',
+                    cancelButtonText: 'Cancelar',
+                    preConfirm: () => {
+                        return {
+                            nombre: document.getElementById('nombre').value,
+                            apellido_paterno: document.getElementById('apellido_paterno').value,
+                            apellido_materno: document.getElementById('apellido_materno').value,
+                            antecedentes: document.getElementById('antecedentes').value,
+                            estatus: document.getElementById('estatus').value,
+                            tratamiento: document.getElementById('tratamiento').value,
+                            fecha: document.getElementById('fecha').value,
+                            hora: document.getElementById('hora').value
+                        };
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Llama a la API para actualizar los datos de la cita
+                        const updatedData = {
+                            id: id,
+                            ...result.value
+                        };
 
-    <script>
-    const pacientes = <?php echo json_encode($pacientes); ?>;
-    const citasNotificadas = new Set();
-
-    function playNotificationSound() {
-        const sound = document.getElementById('notification-sound');
-        sound.play().catch(error => console.log('Error al reproducir el sonido:', error));
+                        fetch('actualizar_citas.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(updatedData)
+                        }).then(response => response.json()).then(data => {
+                            if (data.success) {
+                                Swal.fire('Actualizado', 'La cita ha sido actualizada.', 'success').then(() => {
+                                    location.reload();
+                                });
+                            } else {
+                                Swal.fire('Error', 'Hubo un problema al actualizar la cita.', 'error');
+                            }
+                        });
+                    }
+                });
+            });
     }
 
-    function mostrarNotificacion(paciente) {
-        if (citasNotificadas.has(paciente.id)) {
-            return;
-        }
-        console.log(`Mostrar notificación para ${paciente.nombre} ${paciente.apellido_paterno}`);
-        playNotificationSound();
+    function mostrarModalEliminar(id) {
         Swal.fire({
-            title: 'Aviso',
-            text: `La cita de ${paciente.nombre} ${paciente.apellido_paterno} se aproxima.`,
-            icon: 'info',
-            allowOutsideClick: false,
-            allowEscapeKey: false,
-            confirmButtonText: 'OK'
-        }).then(() => {
-            citasNotificadas.add(paciente.id);
-        });
-    }
-
-    function mostrarModalOpciones(paciente) {
-        console.log(`Mostrar opciones para ${paciente.nombre} ${paciente.apellido_paterno}`);
-
-        if (citasNotificadas.has(paciente.id)) {
-            return;
-        }
-
-        Swal.fire({
-            title: 'Cita',
-            text: `Seleccione una opción para la cita de ${paciente.nombre} ${paciente.apellido_paterno}`,
-            icon: 'question',
+            title: 'Eliminar Cita',
+            text: '¿Estás seguro de que deseas eliminar esta cita?',
+            icon: 'warning',
             showCancelButton: true,
-            confirmButtonText: 'Completado',
-            showDenyButton: true,
-            denyButtonText: `Propuesto`,
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                actualizarEstatus(paciente.id, 'COMPLETADO');
-                citasNotificadas.add(paciente.id);
-            } else if (result.isDenied) {
-                proponerNuevaFechaHora(paciente);
-            } else if (result.dismiss === Swal.DismissReason.cancel) {
-                actualizarEstatus(paciente.id, 'CANCELADO');
-                citasNotificadas.add(paciente.id);
-            }
-        });
-    }
-
-    function actualizarEstatus(id, estatus) {
-        fetch('actualizar_estatus.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ pacientes_id: id, estatus: estatus })
-        }).then(response => response.json()).then(data => {
-            if (data.success) {
-                Swal.fire('Actualizado', 'El estatus ha sido actualizado.', 'success');
-            } else {
-                Swal.fire('Error', 'Hubo un problema al actualizar el estatus.', 'error');
-            }
-        });
-    }
-
-    function proponerNuevaFechaHora(paciente) {
-        Swal.fire({
-            title: 'Proponer nueva fecha y hora',
-            html: '<input type="date" id="fecha" class="swal2-input">' +
-                  '<input type="time" id="hora" class="swal2-input">',
-            showCancelButton: true,
-            confirmButtonText: 'Guardar',
+            confirmButtonText: 'Sí, Eliminar',
             cancelButtonText: 'Cancelar',
-            preConfirm: () => {
-                const fecha = Swal.getPopup().querySelector('#fecha').value;
-                const hora = Swal.getPopup().querySelector('#hora').value;
-                return { fecha: fecha, hora: hora };
-            }
+            confirmButtonColor: '#d33',
+            dangerMode: true
         }).then((result) => {
             if (result.isConfirmed) {
-                const nuevaFechaHora = result.value;
-                fetch('proponer_fecha_hora.php', {
+                fetch('eliminar_cita.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ pacientes_id: paciente.id, fecha: nuevaFechaHora.fecha, hora: nuevaFechaHora.hora })
+                    body: JSON.stringify({ id: id })
                 }).then(response => response.json()).then(data => {
                     if (data.success) {
-                        Swal.fire('Propuesto', 'La nueva fecha y hora han sido propuestas.', 'success');
+                        Swal.fire('Eliminado', 'La cita ha sido eliminada.', 'success').then(() => {
+                            location.reload();
+                        });
                     } else {
-                        Swal.fire('Error', 'Hubo un problema al proponer la nueva fecha y hora.', 'error');
+                        Swal.fire('Error', 'Hubo un problema al eliminar la cita.', 'error');
                     }
                 });
             }
         });
     }
-
-    function verificarCitas() {
-        const ahora = new Date();
-        pacientes.forEach(paciente => {
-            const horaCita = new Date(`${paciente.fecha}T${paciente.hora}`);
-            const cincoMinAntes = new Date(horaCita.getTime() - 5 * 60000);
-            const cincoMinDespues = new Date(horaCita.getTime() + 5 * 60000);
-
-            if (ahora >= cincoMinAntes && ahora < horaCita) {
-                mostrarNotificacion(paciente);
-            } else if (ahora >= horaCita && ahora < cincoMinDespues) {
-                mostrarModalOpciones(paciente);
-            }
-        });
-    }
-
-    setInterval(verificarCitas, 60000);
     </script>
 </body>
 </html>

@@ -90,11 +90,32 @@
         input[type="button"] {
             width: 100%;
         }
+        .card {
+    background-color: #222;
+    color: #fff;
+    border-radius: 20px;
+    padding: 30px;
+    max-width: 600px;
+    text-align: center;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+    animation: slideIn 1s ease-out;
+    margin: auto; /* Agregar esta línea para centrar */
+}
+
+
+p {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
     </style>
 </head>
 
 
 <main class="dark-mod">
+<div class="card">
+        <h1>Bienvenido al Sistema Corona Doctor <?php echo $usuario ?></h1>
+        <p>Gracias por unirse a nosotros. Para poder llevar a cabo un buen uso del sistema, debe empezar a llenar estos formularios para realizar una mayor administración de sus citas. Nuestra administración le permite especificar las horas y días en los que laborará</p>
+    </div>
     <div class="main-container">
         <div class="form-container">
             <h1 class="my-4">Horario de Chamba</h1>
@@ -115,38 +136,38 @@
                     <tbody>
                         <tr>
                             <td><input type="text" name="LUNES" id="LUNES" value="LUNES" disabled class="form-control"></td>
-                            <td><input type="time" name="hora_inicio_lunes" step="1800" required class="form-control"></td>
-                            <td><input type="time" name="hora_fin_lunes" step="1800" required class="form-control"></td>
+                            <td><input type="time" name="hora_inicio_lunes" step="1800" class="form-control" required></td>
+                            <td><input type="time" name="hora_fin_lunes" step="1800" class="form-control" required></td>
                         </tr>
                         <tr>
                             <td><input type="text" name="MARTES" id="Martes" value="MARTES" disabled class="form-control"></td>
-                            <td><input type="time" name="hora_inicio_Martes" step="1800" required class="form-control"></td>
-                            <td><input type="time" name="hora_fin_Martes" step="1800" required class="form-control"></td>
+                            <td><input type="time" name="hora_inicio_Martes" step="1800" class="form-control" required></td>
+                            <td><input type="time" name="hora_fin_Martes" step="1800" class="form-control" required></td>
                         </tr>
                         <tr>
                             <td><input type="text" name="MIERCOLES" id="Miercoles" value="MIERCOLES" disabled class="form-control"></td>
-                            <td><input type="time" name="hora_inicio_Miercoles" step="1800" required class="form-control"></td>
-                            <td><input type="time" name="hora_fin_Miercoles" step="1800" required class="form-control"></td>
+                            <td><input type="time" name="hora_inicio_Miercoles" step="1800" class="form-control" required></td>
+                            <td><input type="time" name="hora_fin_Miercoles" step="1800" class="form-control" required></td>
                         </tr>
                         <tr>
                             <td><input type="text" name="JUEVES" id="Jueves" value="JUEVES" disabled class="form-control"></td>
-                            <td><input type="time" name="hora_inicio_Jueves" step="1800" required class="form-control"></td>
-                            <td><input type="time" name="hora_fin_Jueves" step="1800" required class="form-control"></td>
+                            <td><input type="time" name="hora_inicio_Jueves" step="1800" class="form-control" required></td>
+                            <td><input type="time" name="hora_fin_Jueves" step="1800" class="form-control" required></td>
                         </tr>
                         <tr>
                             <td><input type="text" name="VIERNES" id="Viernes" value="VIERNES" disabled class="form-control"></td>
-                            <td><input type="time" name="hora_inicio_Viernes" step="1800" required class="form-control"></td>
-                            <td><input type="time" name="hora_fin_Viernes" step="1800" required class="form-control"></td>
+                            <td><input type="time" name="hora_inicio_Viernes" step="1800" class="form-control" required></td>
+                            <td><input type="time" name="hora_fin_Viernes" step="1800" class="form-control" required></td>
                         </tr>
                         <tr>
                             <td><input type="text" name="SABADO" id="Sabado" value="SABADO" disabled class="form-control"></td>
-                            <td><input type="time" name="hora_inicio_Sabado" step="1800" required class="form-control"></td>
-                            <td><input type="time" name="hora_fin_Sabado" step="1800" required class="form-control"></td>
+                            <td><input type="time" name="hora_inicio_Sabado" step="1800" class="form-control" required></td>
+                            <td><input type="time" name="hora_fin_Sabado" step="1800" class="form-control" required></td>
                         </tr>
                         <tr>
                             <td><input type="text" name="DOMINGO" id="Domingo" value="DOMINGO" disabled class="form-control"></td>
-                            <td><input type="time" name="hora_inicio_Domingo" step="1800" required class="form-control"></td>
-                            <td><input type="time" name="hora_fin_Domingo" step="1800" required class="form-control"></td>
+                            <td><input type="time" name="hora_inicio_Domingo" step="1800" class="form-control" required></td>
+                            <td><input type="time" name="hora_fin_Domingo" step="1800" class="form-control" required></td>
                         </tr>
                     </tbody>
                 </table>
@@ -158,31 +179,53 @@
     </div>
 </main>
 <script>
-    function guardarHorarios() {
-        // Recolectar los datos del formulario
-        var formData = $("#formularioHorarios").serialize();
+  function guardarHorarios() {
+    // Validar que al menos uno de los campos de tiempo tenga un valor antes de enviar los datos
+    var camposVacios = false;
 
-        // Enviar los datos al servidor mediante AJAX
-        $.ajax({
-            type: "POST",
-            url: "../../assets/config_horarios/configuracion.php",
-            data: formData,
-            success: function(response) {
-                Swal.fire({
-                    icon: 'success',
-                    title: '¡Éxito!',
-                    text: 'Se agregó correctamente su horario'
-                });
-            },
-            error: function(xhr, status, error) {
-                Swal.fire({
-                    icon: 'error',
-                    title: '¡ERROR!',
-                    text: 'ERROR AL AGREGAR'
-                });
-            }
+    // Iterar sobre los campos de tiempo de cada día de la semana
+    $("input[type='time']").each(function() {
+        if (!$(this).val()) {
+            camposVacios = true;
+            return false; // Detener la iteración si se encuentra un campo vacío
+        }
+    });
+
+    // Si hay campos vacíos, mostrar mensaje de error y detener el proceso de envío
+    if (camposVacios) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Debes completar al menos un campo de hora de inicio o hora final.'
         });
+        return; // Detener el proceso de envío si hay campos vacíos
     }
+
+    // Recolectar los datos del formulario
+    var formData = $("#formularioHorarios").serialize();
+
+    // Enviar los datos al servidor mediante AJAX
+    $.ajax({
+        type: "POST",
+        url: "../../assets/config_horarios/configuracion.php",
+        data: formData,
+        success: function(response) {
+            Swal.fire({
+                icon: 'success',
+                title: '¡Éxito!',
+                text: 'Se agregó correctamente su horario'
+            });
+        },
+        error: function(xhr, status, error) {
+            Swal.fire({
+                icon: 'error',
+                title: '¡ERROR!',
+                text: 'ERROR AL AGREGAR'
+            });
+        }
+    });
+}
+
 </script>
 
 </html>
