@@ -19,11 +19,12 @@
         $('#loginForm').submit(function(event){
             event.preventDefault();
             var username = $('#usuario').val();
+            var username_id = $('#id').val();
             var password = $('#password').val();
             $.ajax({
                 type: 'POST',
                 url: "./assets/conexion/login.php",
-                data: {username: username, password: password},
+                data: {username: username, password: password, username_id: username_id},
                 success: function(response){
                     if(response == 'success'){
                         swal({
@@ -80,6 +81,7 @@
                         <br>
                         <br>
                         <form id="loginForm" method="POST">
+                        <input type="hidden" id="id" name="id">
                             <div class="form-group row">
                                 <label for="usuario" class="col-sm-3 col-form-label text-white">Usuario:</label>
                                 <div class="col-sm-8">

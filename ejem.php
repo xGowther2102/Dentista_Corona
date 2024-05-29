@@ -1,3 +1,27 @@
+<?php
+include 'conexion.php';
+session_start();
+if (isset($_SESSION['correo'])) {
+    $correo = $_SESSION['correo'];
+} else {
+    header("../sesion.php");
+    exit();
+}
+
+// Obtener el ID del usuario basado en el correo electrónico
+$sql_usuario = "SELECT id FROM usuarios WHERE correo = '$correo'";
+$result_usuario = $conn->query($sql_usuario);
+
+if ($result_usuario->num_rows > 0) {
+    $row_usuario = $result_usuario->fetch_assoc();
+    $usuario_id = $row_usuario['id'];
+} else {
+    echo "Usuario no encontrado.";
+    exit();
+}
+echo $usuario_id;
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,6 +30,8 @@
     <title>Tabla de Citas</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </head>
 <body>
     <div class="container mt-5">
@@ -27,9 +53,10 @@
             </thead>
             <tbody>
                 <?php
-                include 'conexion.php';
                 $sql = "SELECT p.id, p.nombre, p.apellido_paterno, p.apellido_materno, p.historial_medico AS antecedentes, c.estatus, c.tratamiento, c.fecha, c.hora
-                        FROM citas c INNER JOIN pacientes p ON c.pacientes_id = p.id;";
+                        FROM citas c 
+                        INNER JOIN pacientes p ON c.pacientes_id = p.id
+                        WHERE c.usuario_id = $usuario_id";
                 $result = $conn->query($sql);
 
                 if ($result->num_rows > 0) {
@@ -64,11 +91,9 @@
     <!-- Modales de SweetAlert2 -->
     <script>
     function mostrarModalActualizar(id) {
-        // Llama a la API para obtener los datos de la cita
         fetch(`obtener_cita.php?id=${id}`)
             .then(response => response.json())
             .then(data => {
-                // Muestra los datos en el modal
                 Swal.fire({
                     title: 'Actualizar Cita',
                     html: `
@@ -106,7 +131,6 @@
                     }
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        // Llama a la API para actualizar los datos de la cita
                         const updatedData = {
                             id: id,
                             ...result.value
@@ -162,6 +186,77 @@
             }
         });
     }
+    </script>
+
+
+    <script>
+        function obtenerHoraActual() {
+    var ahora = new Date();
+    var horas = ahora.getHours();
+    var minutos = ahora.getMinutes();
+    var ampm = horas >= 12 ? 'PM' : 'AM';
+    
+    // Convertir las horas al formato de 12 horas
+    horas = horas % 12;
+    horas = horas ? horas : 12; // La hora 0 debe ser 12
+
+    // Añadir un cero delante de los minutos si es necesario
+    minutos = minutos < 10 ? '0' + minutos : minutos;
+
+    var horaActual = horas + ':' + minutos + ' ' + ampm;
+    return horaActual;
+}
+
+console.log(obtenerHoraActual());
+
+function obtenerFechaActual() {
+    var ahora = new Date();
+    var año = ahora.getFullYear();
+    var mes = ahora.getMonth() + 1; // Los meses comienzan desde 0
+    var dia = ahora.getDate();
+
+    // Formatear la fecha como "YYYY-MM-DD"
+    var fechaActual = año + '-' + (mes < 10 ? '0' + mes : mes) + '-' + (dia < 10 ? '0' + dia : dia);
+    return fechaActual;
+}
+
+console.log(obtenerFechaActual());
+
+
+$(document).ready(function() {
+    // Obtener el ID del usuario desde PHP
+    var usuario_id = <?php echo $usuario_id; ?>;
+
+    // Función para obtener las citas del usuario activo
+    function obtenerCitasUsuarioActivo() {
+        // Realizar la solicitud AJAX
+        $.ajax({
+            url: 'obtener_cita.php', // Ruta a tu script PHP que maneja la solicitud
+            type: 'POST',
+            dataType: 'json',
+            data: { usuario_id: usuario_id },
+            success: function(response) {
+                // Manejar la respuesta del servidor
+                if (response.success) {
+                    // Aquí puedes trabajar con los datos de las citas recibidas
+                    var citas = response.citas;
+                    citas.forEach(function(cita) {
+                        // Acceder a la hora de cada cita y hacer lo que necesites con ella
+                        console.log('Hora de la cita:', cita.hora);
+                    });
+                } else {
+                    console.error('Error al obtener citas:', response.error);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error en la solicitud AJAX:', error);
+            }
+        });
+    }
+
+    // Llamar a la función para obtener las citas del usuario activo
+    obtenerCitasUsuarioActivo();
+});
     </script>
 </body>
 </html>
