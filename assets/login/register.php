@@ -8,6 +8,25 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="../../../Dentista_Corona/css/registro_login.css">
 </head>
+<style>
+    .info-tooltip .info-icon {
+        cursor: pointer;
+        margin-left: 5px;
+    }
+
+    /* Estilo para el tooltip */
+    .tooltip-inner {
+        max-width: 200px;
+        padding: 8px 12px;
+        background-color: #1C3059;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+
+    .tooltip.bs-tooltip-bottom .arrow::before {
+        border-bottom-color: #1C3059;
+    }
+</style>
 
 <body>
     <div class="container-fluid">
@@ -51,7 +70,10 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="password" class="col-sm-12 col-form-label text-white">Contraseña:</label>
+                                <div class="col-sm-12 col-form-label text-white info-tooltip">
+                                    Contraseña:
+                                    <span class="info-icon" data-toggle="tooltip" data-placement="bottom" title="La contraseña debe tener al menos 8 caracteres con al menos una mayúscula y un número.">ℹ️</span>
+                                </div>
                                 <div class="col-sm-10">
                                     <input type="password" class="form-control text-white" id="password" name="password" placeholder="Ingrese su contraseña">
                                 </div>
@@ -79,7 +101,7 @@
                         <div class="alertas">
                             <div id="nombreError" class="alert alert-danger d-none" role="alert">Por favor, ingrese su nombre.</div>
                             <div id="correoError" class="alert alert-danger d-none" role="alert">Por favor, ingrese un correo electrónico válido.</div>
-                            <div id="passwordError" class="alert alert-danger d-none" role="alert">La contraseña debe tener al menos 8 caracteres con al menos una mayúscula y un número.</div>
+                            <div id="passwordError" class="alert alert-danger d-none" role="alert" hidden>La contraseña debe tener al menos 8 caracteres con al menos una mayúscula y un número.</div>
                             <div id="confirmPasswordError" class="alert alert-danger d-none" role="alert">Las contraseñas no coinciden.</div>
                         </div>
                         <!-- Modal de Avisos -->
@@ -108,8 +130,17 @@
                 </div>
             </div>
         </div>
-
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                // Mostrar mensaje de información al pasar el cursor por encima del icono dentro del campo de contraseña
+                $('.info-icon').hover(function() {
+                    var message = $(this).attr('title');
+                    $('#avisoModalBody').text(message);
+                    $('#avisoModal').modal('show');
+                });
+            });
+        </script>
         <script src="../../../Dentista_Corona/js/registro.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
