@@ -13,6 +13,7 @@ if(isset($_POST['nombre']) && isset($_POST['apellidoP']) && isset($_POST['apelli
     $sexo = $_POST['sexo'];
     $historial = $_POST['historial'];
     
+    
     // Conexión a la base de datos (cambia los valores según tu configuración)
     $conexion = new mysqli("localhost", "root", "", "Dentista_Corona");
     

@@ -199,6 +199,10 @@
                                         <label for="apellidoMaternoAct">Apellido materno:</label>
                                         <input type="text" class="form-control" id="apellidoMaternoCit" name="apellido_materno" required>
                                     </div>
+                                    <div class="form-group">
+                                        <label for="duracion">Duracion de la cita:</label>
+                                        <input type="time" class="form-control" id="duracion" placeholder="Ingrese duracion">
+                                    </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -213,6 +217,7 @@
                                         <label for="direccionAct">Hora:</label>
                                         <select id="horaCit" name="hora" required></select>
                                     </div>
+                                    
                                     <div class="form-group">
                                         <label for="sexoAct">Tratamiento:</label>
                                         <input type="text" class="form-control" id="tratamientoCit" name="tratamiento" required>

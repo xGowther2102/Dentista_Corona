@@ -36,7 +36,6 @@
                                     console.log("Respuesta del servidor: ", response);
                                     window.location = './pages/inicio/index.php';
                                 } else {
-                                    console.error("Error en la solicitud AJAX: ", error);
                                     window.location = './pages/configuraciones/configuraciones.php';
                                 }
                             },

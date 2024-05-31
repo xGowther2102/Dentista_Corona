@@ -118,7 +118,7 @@ p {
     </div>
     <div class="main-container">
         <div class="form-container">
-            <h1 class="my-4">Horario de Chamba</h1>
+            <h1 class="my-4">Horario de Trabajo</h1>
 
             <form id="formularioHorarios">
                 <input type="hidden" name="correo" id="correo" value="<?php echo $correo; ?>">

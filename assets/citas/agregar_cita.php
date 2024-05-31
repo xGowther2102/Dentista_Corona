@@ -72,7 +72,10 @@
                                 <label for="apellidoM">Apellido Materno:</label>
                                 <input type="text" class="form-control" id="apellidoM" placeholder="Ingrese su apellido materno">
                             </div>
-
+                            <div class="form-group">
+                                <label for="duracion">Duracion de la cita:</label>
+                                <input type="text" class="form-control" id="duracion" placeholder="Ingrese duracion">
+                            </div>
                             <div class="form-group">
                                 <label for="tratamiento">Tratamiento:</label>
                                 <textarea class="form-control" id="tratamiento" placeholder="Ingrese el tratamiento"></textarea>

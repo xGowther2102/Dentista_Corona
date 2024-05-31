@@ -4,8 +4,9 @@ function registrarCita() {
     var apellidoM = $('#apellidoM').val();
     var date = $('#date').val();
     var tratamiento = $('#tratamiento').val();
+    var duracion = $('#duracion').val();
 
-    if (nombre !== '' && apellidoP !== '' && apellidoM !== '' && date !== '' && tratamiento !== '') {
+    if (nombre !== '' && apellidoP !== '' && apellidoM !== '' && date !== '' && tratamiento !== '' && duracion !== '') {
         $.ajax({
             type: 'POST',
             url: '../../assets/conexion/registro_citas.php',
@@ -14,7 +15,8 @@ function registrarCita() {
                 apellidoP: apellidoP,
                 apellidoM: apellidoM,
                 date: date,
-                tratamiento: tratamiento
+                tratamiento: tratamiento,
+                duracion: duracion
             },
             success: function (response) {
                 // Si la inserción es exitosa, mostrar SweetAlert de éxito

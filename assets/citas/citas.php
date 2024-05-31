@@ -45,16 +45,7 @@ $resultado = $stmt->get_result();
     <link rel="stylesheet" href="../../css/tabla_citas.css">
     <?php require '../../assets/MENU/index.php'; ?>
 </head>
-<style>
-  .text-success {
-    color: green;
-}
 
-.text-danger {
-    color: red;
-}
-
-</style>
 <body>
 <main class="dark-mod">
     <h1 class="my-4" style="text-align: center; color: rgb(155, 155, 155); border: 1px black;">Lista de Citas</h1>
@@ -133,6 +124,7 @@ $resultado = $stmt->get_result();
                         </tr>
                     </thead>
                     <tbody id="historialResultados">
+                        <!-- Los resultados se cargarán aquí dinámicamente -->
                     </tbody>
                 </table>
             </div>
@@ -157,11 +149,29 @@ $resultado = $stmt->get_result();
         $('.historial-btn').on('click', function() {
             var pacienteId = $(this).data('id');
             $.ajax({
-                url: '../../assets/citas/historial.citas.php',
+                url: '../../assets/citas/historial_citas.php',
                 method: 'POST',
                 data: { paciente_id: pacienteId },
                 success: function(response) {
-                  console.log(response);
+                    $('#historialResultados').html(response);
+                    $('#historialModal').modal('show');
+                }
+            });
+        });
+    });
+
+
+    $(document).ready(function() {
+        $('#dataTable').DataTable();
+
+        // Manejar la apertura del modal y cargar datos
+        $('.historial-btn').on('click', function() {
+            var pacienteId = $(this).data('id');
+            $.ajax({
+                url: 'historial.citas.php',
+                method: 'POST',
+                data: { paciente_id: pacienteId },
+                success: function(response) {
                     $('#historialResultados').html(response);
                     $('#historialModal').modal('show');
                 }

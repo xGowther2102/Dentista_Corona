@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 if (!isset($_SESSION['username']) || !isset($_SESSION['correo'])) {
     // Si el usuario no ha iniciado sesión, puedes redirigirlo a la página de inicio de sesión
     header("Location: ../../iniciar_sesion.php");
@@ -10,6 +12,7 @@ if (!isset($_SESSION['username']) || !isset($_SESSION['correo'])) {
 $usuario = $_SESSION['username'];
 $correo = $_SESSION['correo'];
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
